@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d6aad32c140254d8ecbaa48b2c5621, type: 3}
+  m_Name: Oculus_ControllerConfig
+  m_EditorClassIdentifier: 
+  configName: OculusRift
+  leftController: {fileID: 1053004847049738, guid: 8bb19d22037a72d49a2598d856ac9260,
+    type: 2}
+  rightController: {fileID: 1216916338798810, guid: 3db3c268eeaa8c148adaa6b18beccee4,
+    type: 2}
