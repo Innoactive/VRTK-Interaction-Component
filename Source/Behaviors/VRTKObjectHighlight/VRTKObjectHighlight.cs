@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using VRTK.Highlighters;
 using System.Runtime.Serialization;
 using Innoactive.Hub.Training.Attributes;
 using Innoactive.Hub.Training.Configuration;
@@ -9,7 +10,6 @@ using Innoactive.Hub.Training.SceneObjects.Properties;
 using Innoactive.Hub.Training.Unity.Utils;
 using Innoactive.Hub.Training.Utils;
 using Newtonsoft.Json;
-using VRTK.Highlighters;
 
 namespace Innoactive.Hub.Training.Behaviors
 {

@@ -1,5 +1,5 @@
-﻿using System;
-using Innoactive.Hub.Unity;
+﻿﻿using Innoactive.Hub.Interaction;
+using System;
 using UnityEngine;
 using VRTK;
 
@@ -8,8 +8,10 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
     [RequireComponent(typeof(TouchableProperty))]
     public class UsableProperty : LockableProperty
     {
-        public event EventHandler<EventArgs> UsageStarted;
-        public event EventHandler<EventArgs> UsageStopped;
+        public class UsedEventArgs : EventArgs { }
+
+        public event EventHandler<UsedEventArgs> UsageStarted;
+        public event EventHandler<UsedEventArgs> UsageStopped;
 
         public virtual bool IsBeingUsed
         {
@@ -61,7 +63,12 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             base.OnEnable();
 
-            interactable = gameObject.GetComponent<VRTK_InteractableObject>(true);
+            interactable = gameObject.GetComponent<VRTK_InteractableObject>();
+            if (interactable == null)
+            {
+                interactable = gameObject.AddComponent<InteractableObject>();
+            }
+
             interactable.holdButtonToUse = HoldButtonToUse;
             interactable.useOnlyIfGrabbed = UsableOnlyIfGrabbed;
 
@@ -96,7 +103,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (UsageStarted != null)
             {
-                UsageStarted.Invoke(this, EventArgs.Empty);
+                UsageStarted.Invoke(this, new UsedEventArgs());
             }
         }
 
@@ -104,7 +111,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (UsageStopped != null)
             {
-                UsageStopped.Invoke(this, EventArgs.Empty);
+                UsageStopped.Invoke(this, new UsedEventArgs());
             }
         }
 

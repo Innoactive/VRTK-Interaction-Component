@@ -55,7 +55,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         /// If the game object is an interactable object (touchable, grabbable, useable, ...), then <see cref="InteractableHighlighter"/> is initialised.
         /// If not, then <see cref="NonInteractableHighlighter"/> is.
         /// </summary>
-        protected void Initialise()
+        public void Initialise()
         {
             InteractableHighlighter = null;
             NonInteractableHighlighter = null;

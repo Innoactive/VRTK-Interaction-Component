@@ -1,17 +1,26 @@
-﻿using System;
-using Innoactive.Hub.Interaction;
+﻿﻿using Innoactive.Hub.Interaction;
+using System;
 using Innoactive.Hub.Training.Configuration;
 using Innoactive.Hub.Training.Configuration.Modes;
-using Innoactive.Hub.Unity;
 using UnityEngine;
 using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
-    [RequireComponent(typeof(VRTK_SnapDropZone))]
+    [RequireComponent(typeof(SnapDropZone))]
     public class SnapZoneProperty : LockableProperty
     {
         private static readonly Common.Logging.ILog logger = Logging.LogManager.GetLogger<SnapZoneProperty>();
+
+        public class SnappedEventArgs : EventArgs
+        {
+            public readonly GameObject SnappedObject;
+
+            public SnappedEventArgs(GameObject snappedObject)
+            {
+                SnappedObject = snappedObject;
+            }
+        }
 
         public event EventHandler<SnappedEventArgs> ObjectSnapped;
         public event EventHandler<SnappedEventArgs> ObjectUnsnapped;
@@ -34,15 +43,6 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
 
         public SnapDropZone SnapZone { get; protected set; }
 
-        public void Configure(IMode mode)
-        {
-            InitializeModeParameters();
-
-            IsAlwaysShowingHighlight.Configure(mode);
-            IsShowingHighlight.Configure(mode);
-            HighlightColor.Configure(mode);
-        }
-
         public void ForceUnsnap()
         {
             SnapZone.ForceUnsnap();
@@ -52,6 +52,15 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             SnappedObject = gameObject.GetComponent<SnappableProperty>();
             SnapZone.ForceSnap(gameObject);
+        }
+
+        public void Configure(IMode mode)
+        {
+            InitializeModeParameters();
+
+            IsAlwaysShowingHighlight.Configure(mode);
+            IsShowingHighlight.Configure(mode);
+            HighlightColor.Configure(mode);
         }
 
         protected override void OnEnable()
@@ -97,7 +106,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (SnapZone == null)
             {
-                SnapZone = gameObject.GetComponent<SnapDropZone>(true);
+                SnapZone = GetComponent<SnapDropZone>();
             }
 
             if (IsShowingHighlight == null)
@@ -142,7 +151,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (ObjectSnapped != null)
             {
-                ObjectSnapped.Invoke(this, new SnappedEventArgs(this, snappedObject));
+                ObjectSnapped.Invoke(this, new SnappedEventArgs(snappedObject));
             }
         }
 
@@ -150,7 +159,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (ObjectUnsnapped != null)
             {
-                ObjectUnsnapped.Invoke(this, new SnappedEventArgs(this, unsnappedObject));
+                ObjectUnsnapped.Invoke(this, new SnappedEventArgs(unsnappedObject));
             }
         }
 

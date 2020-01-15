@@ -1,5 +1,5 @@
-﻿using System;
-using Innoactive.Hub.Unity;
+﻿﻿using Innoactive.Hub.Interaction;
+using System;
 using UnityEngine;
 using VRTK;
 using VRTK.GrabAttachMechanics;
@@ -10,8 +10,10 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
     [RequireComponent(typeof(TouchableProperty))]
     public class GrabbableProperty : LockableProperty
     {
-        public event EventHandler<EventArgs> Grabbed;
-        public event EventHandler<EventArgs> Ungrabbed;
+        public class GrabbedEventArgs : EventArgs { }
+
+        public event EventHandler<GrabbedEventArgs> Grabbed;
+        public event EventHandler<GrabbedEventArgs> Ungrabbed;
 
         public virtual bool IsGrabbed
         {
@@ -31,7 +33,12 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             base.OnEnable();
 
-            interactable = gameObject.GetComponent<VRTK_InteractableObject>(true);
+            interactable = gameObject.GetComponent<VRTK_InteractableObject>();
+            if (interactable == null)
+            {
+                interactable = gameObject.AddComponent<InteractableObject>();
+            }
+
             if (gameObject.GetComponent<VRTK_BaseHighlighter>() == null)
             {
                 // TODO: configurable defaults
@@ -78,7 +85,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (Grabbed != null)
             {
-                Grabbed.Invoke(this, EventArgs.Empty);
+                Grabbed.Invoke(this, new GrabbedEventArgs());
             }
         }
 
@@ -86,7 +93,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (Ungrabbed != null)
             {
-                Ungrabbed.Invoke(this, EventArgs.Empty);
+                Ungrabbed.Invoke(this, new GrabbedEventArgs());
             }
         }
 
