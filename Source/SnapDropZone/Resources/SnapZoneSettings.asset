@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8510663b9c7eac44b955c11e91a49c75, type: 3}
+  m_Name: SnapZoneSettings
+  m_EditorClassIdentifier: 
+  SnapType: 0
+  SnapDuration: 0
+  HighlightColor: {r: 0.2509804, g: 0.78431374, b: 1, a: 0.19607843}
+  ValidHighlightColor: {r: 0, g: 1, b: 0, a: 0.19607843}
+  HighlightAlwaysActive: 1
+  highlightMaterial: {fileID: 2100000, guid: 127a40a6f3d68c344a84c3b1d3d63f36, type: 2}
