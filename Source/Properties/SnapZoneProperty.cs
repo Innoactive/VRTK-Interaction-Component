@@ -12,16 +12,6 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
     {
         private static readonly Common.Logging.ILog logger = Logging.LogManager.GetLogger<SnapZoneProperty>();
 
-        public class SnappedEventArgs : EventArgs
-        {
-            public readonly GameObject SnappedObject;
-
-            public SnappedEventArgs(GameObject snappedObject)
-            {
-                SnappedObject = snappedObject;
-            }
-        }
-
         public event EventHandler<SnappedEventArgs> ObjectSnapped;
         public event EventHandler<SnappedEventArgs> ObjectUnsnapped;
 
@@ -43,6 +33,15 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
 
         public SnapDropZone SnapZone { get; protected set; }
 
+        public void Configure(IMode mode)
+        {
+            InitializeModeParameters();
+
+            IsAlwaysShowingHighlight.Configure(mode);
+            IsShowingHighlight.Configure(mode);
+            HighlightColor.Configure(mode);
+        }
+
         public void ForceUnsnap()
         {
             SnapZone.ForceUnsnap();
@@ -52,15 +51,6 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             SnappedObject = gameObject.GetComponent<SnappableProperty>();
             SnapZone.ForceSnap(gameObject);
-        }
-
-        public void Configure(IMode mode)
-        {
-            InitializeModeParameters();
-
-            IsAlwaysShowingHighlight.Configure(mode);
-            IsShowingHighlight.Configure(mode);
-            HighlightColor.Configure(mode);
         }
 
         protected override void OnEnable()
