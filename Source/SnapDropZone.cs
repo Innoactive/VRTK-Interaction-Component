@@ -83,8 +83,21 @@ namespace Innoactive.Hub.Interaction
             isGettingDisabled = false;
         }
 
+        protected override void OnTriggerEnter(Collider collider)
+        {
+            if (enabled)
+            {
+                base.OnTriggerEnter(collider);
+            }
+        }
+
         protected override void OnTriggerExit(Collider collider)
         {
+            if (enabled == false)
+            {
+                return;
+            }
+
             // If the current valid snapped object is the collider leaving the trigger then attempt to turn off the highlighter.
             if (IsObjectHovering(collider.gameObject))
             {
@@ -94,7 +107,7 @@ namespace Innoactive.Hub.Interaction
             // parent logic
             base.OnTriggerExit(collider);
 
-            if (currentSnappedObject.gameObject == collider.gameObject)
+            if (currentSnappedObject != null && currentSnappedObject.gameObject == collider.gameObject)
             {
                 // Do not unsnap if the snapzone on your own is not ours.
                 Rigidbody rigidBody = GetComponentInParent<Rigidbody>();
