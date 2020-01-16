@@ -1,13 +1,15 @@
-﻿using System;
-using Innoactive.Hub.Unity;
+﻿﻿using Innoactive.Hub.Interaction;
+using System;
 using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
     public class TouchableProperty : LockableProperty
     {
-        public event EventHandler<EventArgs> Touched;
-        public event EventHandler<EventArgs> Untouched;
+        public class TouchedEventArgs : EventArgs { }
+
+        public event EventHandler<TouchedEventArgs> Touched;
+        public event EventHandler<TouchedEventArgs> Untouched;
 
         public virtual bool IsBeingTouched
         {
@@ -48,7 +50,12 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             base.OnEnable();
 
-            interactable = gameObject.GetComponent<VRTK_InteractableObject>(true);
+            interactable = gameObject.GetComponent<VRTK_InteractableObject>();
+            if (interactable == null)
+            {
+                interactable = gameObject.AddComponent<InteractableObject>();
+            }
+
             interactable.disableWhenIdle = false; // required to allow deactivating interactable object touching
             interactable.enabled = true;
 
@@ -78,7 +85,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (Touched != null)
             {
-                Touched.Invoke(this, EventArgs.Empty);
+                Touched.Invoke(this, new TouchedEventArgs());
             }
         }
 
@@ -86,7 +93,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (Untouched != null)
             {
-                Untouched.Invoke(this, EventArgs.Empty);
+                Untouched.Invoke(this, new TouchedEventArgs());
             }
         }
 

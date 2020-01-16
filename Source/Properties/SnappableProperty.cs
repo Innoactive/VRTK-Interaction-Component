@@ -1,14 +1,24 @@
-﻿using System;
-using Innoactive.Hub.Unity;
+﻿﻿﻿using Innoactive.Hub.Interaction;
+using System;
+using Innoactive.Hub.Training.Unity.Utils;
 using UnityEngine;
 using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
-    [RequireComponent(typeof(GrabbableProperty))]
+    [RequireComponent(typeof(Rigidbody), typeof(GrabbableProperty))]
     public class SnappableProperty : TrainingSceneObjectProperty
     {
         private static readonly Common.Logging.ILog logger = Logging.LogManager.GetLogger<SnappableProperty>();
+
+        public class SnappedEventArgs : EventArgs
+        {
+            public readonly SnapZoneProperty SnapZone;
+            public SnappedEventArgs(SnapZoneProperty snapZone)
+            {
+                SnapZone = snapZone;
+            }
+        }
 
         public event EventHandler<SnappedEventArgs> Snapped;
         public event EventHandler<SnappedEventArgs> Unsnapped;
@@ -39,12 +49,24 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
 
         private VRTK_InteractableObject interactable = null;
 
+        protected void Awake()
+        {
+            // The Rigidbody is required for the snap type `Use Kinematic` of the snap drop zone script to work properly.
+            gameObject.GetOrAddComponent<Rigidbody>();
+        }
+
         protected override void OnEnable()
         {
             base.OnEnable();
 
             // TODO: think about init order of multiple properties
-            interactable = gameObject.GetComponent<VRTK_InteractableObject>(true);
+
+            interactable = gameObject.GetComponent<VRTK_InteractableObject>();
+            if (interactable == null)
+            {
+                interactable = gameObject.AddComponent<InteractableObject>();
+            }
+
             interactable.InteractableObjectSnappedToDropZone += HandleSnappedToDropZone;
             interactable.InteractableObjectUnsnappedFromDropZone += HandleUnsnappedFromDropZone;
         }
@@ -68,7 +90,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
                 return;
             }
 
-            if (LockObjectOnSnap == false )
+            if (LockObjectOnSnap)
             {
                 SceneObject.SetLocked(true);
             }
@@ -91,7 +113,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (Snapped != null)
             {
-                Snapped.Invoke(this, new SnappedEventArgs(snapZone, interactable.gameObject));
+                Snapped.Invoke(this, new SnappedEventArgs(snapZone));
             }
         }
 
@@ -99,7 +121,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (Unsnapped != null)
             {
-                Unsnapped.Invoke(this, new SnappedEventArgs(snapZone, interactable.gameObject));
+                Unsnapped.Invoke(this, new SnappedEventArgs(snapZone));
             }
         }
 
@@ -110,29 +132,15 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (SnappedZone != null)
             {
-                SnappedZone.ForceUnsnap();
+                SnappedZone.SnapZone.ForceUnsnap();
             }
 
-            SnapZoneProperty zoneToSnapTo = snapZone as SnapZoneProperty;
-            if (zoneToSnapTo != null)
+            if (snapZone.SnapZone.GetCurrentSnappedInteractableObject() != null)
             {
-                if (zoneToSnapTo.SnapZone.GetCurrentSnappedInteractableObject() != null)
-                {
-                    zoneToSnapTo.SnapZone.ForceUnsnap();
-                }
-
-                // In case this Interactable Object has not been touched yet.
-                if (zoneToSnapTo.SnapZone.snapType == VRTK_SnapDropZone.SnapTypes.UseJoint && GetComponent<Rigidbody>() == null)
-                {
-                    gameObject.AddComponent<Rigidbody>();
-                }
-
-                zoneToSnapTo.ForceSnap(gameObject);
+                snapZone.SnapZone.ForceUnsnap();
             }
-            else
-            {
-                logger.ErrorFormat("Fastforward failed, different ISnapZoneProperty implemented, do you use VRTK?");
-            }
+
+            snapZone.SnapZone.ForceSnapObjectWithoutTransition(gameObject);
         }
     }
 }
