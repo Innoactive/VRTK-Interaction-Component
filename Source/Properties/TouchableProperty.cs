@@ -1,8 +1,9 @@
 ﻿﻿using Innoactive.Hub.Interaction;
 using System;
+using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Training.SceneObjects.Properties
+ namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
     public class TouchableProperty : LockableProperty
     {
@@ -27,6 +28,8 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         public bool HoldButtonToUse { get; protected set; }
 
         protected VRTK_InteractableObject interactable;
+
+        protected VRTK_InteractObjectHighlighter highlighter;
 
         public void SetUsableOnlyIfGrabbed(bool value)
         {
@@ -61,6 +64,13 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
 
             interactable.InteractableObjectTouched += HandleVRTKTouched;
             interactable.InteractableObjectUntouched += HandleVRTKUntouched;
+
+            highlighter = gameObject.GetComponent<VRTK_InteractObjectHighlighter>();
+            if (highlighter == null)
+            {
+                highlighter = gameObject.AddComponent<VRTK_InteractObjectHighlighter>();
+                highlighter.touchHighlight = new Color(0.259f, 0.7843f, 1.0f, 0.5f);
+            }
         }
 
         protected override void OnDisable()
