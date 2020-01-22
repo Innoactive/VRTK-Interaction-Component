@@ -55,8 +55,8 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
                     if (AssetDatabase.IsValidFolder(newPath) == false)
                     {
                         AssetDatabase.CreateFolder(subPath, folders[i]);
-                        subPath = newPath;
                     }
+                    subPath = newPath;
                 }
             }
 
@@ -118,7 +118,13 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
             {
                 if (IsComponentNeeded(component))
                 {
-                    Component targetComponent = destinationObject.GetComponent(component.GetType());
+                    Component targetComponent = null;
+
+                    // Every gameObject has a Transform, so we need to check for this seperately
+                    if (component.GetType() == typeof(Transform))
+                    {
+                        targetComponent = destinationObject.GetComponent<Transform>();
+                    }
 
                     if (targetComponent == null)
                     {
