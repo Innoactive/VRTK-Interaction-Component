@@ -301,11 +301,11 @@ MonoBehaviour:
   enableTeleport: 1
   targetListPolicy: {fileID: 0}
   pointerRenderer: {fileID: 0}
-  activationButton: 10
+  activationButton: 3
   holdButtonToActivate: 1
   activateOnEnable: 0
   activationDelay: 0
-  selectionButton: 10
+  selectionButton: 3
   selectOnPress: 0
   selectionDelay: 0
   selectAfterHoverDuration: 0
