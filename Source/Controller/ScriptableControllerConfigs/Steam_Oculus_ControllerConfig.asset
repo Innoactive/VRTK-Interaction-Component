@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Steam_Oculus_ControllerConfig
   m_EditorClassIdentifier: 
   configName: OculusRift
-  leftController: {fileID: 1224792161633798, guid: 199f8052dba70e540b68174cb43b5d2a,
+  leftController: {fileID: 1260592821239920, guid: 199f8052dba70e540b68174cb43b5d2a,
     type: 2}
-  rightController: {fileID: 1109661245127228, guid: abccdc3d6dabd0d45b3cf4feabb2e727,
+  rightController: {fileID: 1954828874981002, guid: abccdc3d6dabd0d45b3cf4feabb2e727,
     type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Steam_HTCVive_ControllerConfig
   m_EditorClassIdentifier: 
   configName: HTCVive
-  leftController: {fileID: 1019809155342480, guid: 9b11cc8a73f53434f9f2db8fd10cbf98,
+  leftController: {fileID: 1665461619701734, guid: 9b11cc8a73f53434f9f2db8fd10cbf98,
     type: 2}
-  rightController: {fileID: 1881567718245558, guid: 054a9f6c7651cf649a516edd9d932a9a,
+  rightController: {fileID: 1867450404086076, guid: 054a9f6c7651cf649a516edd9d932a9a,
     type: 2}

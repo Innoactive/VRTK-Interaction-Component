@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Steam_MixedReality_ControllerConfig
   m_EditorClassIdentifier: 
   configName: WindowsMixedReality
-  leftController: {fileID: 1379286736429092, guid: 1ee65c90219b78c498d5ea92c44a342f,
+  leftController: {fileID: 1127021397265534, guid: 1ee65c90219b78c498d5ea92c44a342f,
     type: 2}
-  rightController: {fileID: 1351194715880930, guid: c0d7b71c806cd7d4aa63765fd1c237a6,
+  rightController: {fileID: 1700204232689546, guid: c0d7b71c806cd7d4aa63765fd1c237a6,
     type: 2}
