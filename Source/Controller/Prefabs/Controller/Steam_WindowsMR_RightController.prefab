@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 4602292913235706}
   - component: {fileID: 114204207320644674}
   - component: {fileID: 114630121123782046}
+  - component: {fileID: 114616241869622906}
   m_Layer: 0
   m_Name: TeleporterPointer
   m_TagString: Untagged
@@ -299,6 +300,22 @@ MonoBehaviour:
   canClickOnHover: 0
   autoActivatingCanvas: {fileID: 0}
   collisionClick: 0
+--- !u!114 &114616241869622906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937335702655214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce77a5256dab7d146bcc3b6fe8ec0e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setWhenTouching: 0
+  toDisable:
+  - {fileID: 114204207320644674}
+  - {fileID: 114630121123782046}
+  interactHandler: {fileID: 114737966384488672}
 --- !u!114 &114630121123782046
 MonoBehaviour:
   m_ObjectHideFlags: 1
