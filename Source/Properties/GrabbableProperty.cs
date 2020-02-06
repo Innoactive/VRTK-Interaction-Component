@@ -28,6 +28,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         }
 
         private VRTK_InteractableObject interactable;
+        private VRTK_InteractObjectHighlighter highlighter;
 
         protected override void OnEnable()
         {
@@ -101,7 +102,27 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (interactable.IsGrabbed())
             {
-                interactable.ForceStopInteracting();
+                if (lockState)
+                {
+                    interactable.ForceStopInteracting();
+                }
+
+                if (highlighter == null)
+                {
+                    highlighter = gameObject.GetComponent<VRTK_InteractObjectHighlighter>();
+                }
+
+                if (highlighter != null && highlighter.grabHighlight != Color.clear)
+                {
+                    if (lockState)
+                    {
+                        highlighter.Unhighlight();
+                    }
+                    else
+                    {
+                        highlighter.Highlight(highlighter.grabHighlight);
+                    }
+                }
             }
 
             interactable.isGrabbable = lockState == false;
