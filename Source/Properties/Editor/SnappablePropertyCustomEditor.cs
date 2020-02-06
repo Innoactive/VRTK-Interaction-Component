@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Innoactive.Hub.Interaction;
 using Innoactive.Hub.Training.Utils;
@@ -37,6 +38,10 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
             if (settings == null)
             {
                 settings = CreateInstance<SnapZoneSettings>();
+                if (Directory.Exists("Assets/Resources/") == false)
+                {
+                    Directory.CreateDirectory("Assets/Resources/");
+                }
                 AssetDatabase.CreateAsset(settings, "Assets/Resources/SnapZoneSettings.asset");
                 AssetDatabase.SaveAssets();
             }
@@ -65,6 +70,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
 #elif UNITY_2017_4_OR_NEWER
             GameObject snapZonePrefab = PrefabUtility.CreatePrefab(prefabPath + "/" + snappable.name + "Highlight.prefab", snapZoneBlueprint);
 #endif
+            snapZonePrefab.transform.localScale = Vector3.one;
 
             snapZoneBlueprint.name = snappable.name + "SnapZone";
             snapZoneBlueprint.transform.position = Vector3.zero;
