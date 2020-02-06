@@ -111,7 +111,22 @@ using VRTK;
         {
             if (interactable.IsTouched())
             {
-                interactable.ForceStopInteracting();
+                if (lockState)
+                {
+                    interactable.ForceStopInteracting();
+                }
+
+                if (highlighter != null && highlighter.touchHighlight != Color.clear)
+                {
+                    if (lockState)
+                    {
+                        highlighter.Unhighlight();
+                    }
+                    else
+                    {
+                        highlighter.Highlight(highlighter.touchHighlight);
+                    }
+                }
             }
 
             interactable.enabled = lockState == false;
