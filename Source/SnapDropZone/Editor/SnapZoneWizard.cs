@@ -96,7 +96,7 @@ namespace Innoactive.Hub.Training.Editors.Windows
 
             if (isSavedAndApplied)
             {
-                SnapDropZone[] snapZones = FindObjectsOfType<SnapDropZone>();
+                SnapDropZone[] snapZones = Resources.FindObjectsOfTypeAll<SnapDropZone>();
 
                 foreach (SnapDropZone snapZone in snapZones)
                 {

@@ -34,6 +34,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         public bool HoldButtonToUse { get { return holdButtonToUse; } protected set { holdButtonToUse = value; } }
 
         protected VRTK_InteractableObject interactable;
+        protected VRTK_InteractObjectHighlighter highlighter;
 
         public UsableProperty()
         {
@@ -119,7 +120,27 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         {
             if (interactable.IsUsing())
             {
-                interactable.ForceStopInteracting();
+                if (lockState)
+                {
+                    interactable.ForceStopInteracting();
+                }
+
+                if (highlighter == null)
+                {
+                    highlighter = gameObject.GetComponent<VRTK_InteractObjectHighlighter>();
+                }
+
+                if (highlighter != null && highlighter.useHighlight != Color.clear)
+                {
+                    if (lockState)
+                    {
+                        highlighter.Unhighlight();
+                    }
+                    else
+                    {
+                        highlighter.Highlight(highlighter.useHighlight);
+                    }
+                }
             }
 
             interactable.isUsable = lockState == false;
