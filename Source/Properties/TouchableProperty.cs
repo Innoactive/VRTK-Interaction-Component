@@ -1,16 +1,17 @@
 ﻿﻿using Innoactive.Hub.Interaction;
 using System;
-using UnityEngine;
+ using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+ using UnityEngine;
 using VRTK;
 
  namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
-    public class TouchableProperty : LockableProperty
+    public class TouchableProperty : LockableProperty, ITouchableProperty
     {
         public class TouchedEventArgs : EventArgs { }
 
-        public event EventHandler<TouchedEventArgs> Touched;
-        public event EventHandler<TouchedEventArgs> Untouched;
+        public event EventHandler<EventArgs> Touched;
+        public event EventHandler<EventArgs> Untouched;
 
         public virtual bool IsBeingTouched
         {

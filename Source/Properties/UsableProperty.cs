@@ -1,17 +1,18 @@
 ﻿﻿using Innoactive.Hub.Interaction;
 using System;
-using UnityEngine;
+ using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+ using UnityEngine;
 using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
     [RequireComponent(typeof(TouchableProperty))]
-    public class UsableProperty : LockableProperty
+    public class UsableProperty : LockableProperty, IUsableProperty
     {
         public class UsedEventArgs : EventArgs { }
 
-        public event EventHandler<UsedEventArgs> UsageStarted;
-        public event EventHandler<UsedEventArgs> UsageStopped;
+        public event EventHandler<EventArgs> UsageStarted;
+        public event EventHandler<EventArgs> UsageStopped;
 
         public virtual bool IsBeingUsed
         {

@@ -1,6 +1,7 @@
 ﻿﻿using Innoactive.Hub.Interaction;
 using System;
-using UnityEngine;
+ using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+ using UnityEngine;
 using VRTK;
 using VRTK.GrabAttachMechanics;
 using VRTK.Highlighters;
@@ -8,12 +9,12 @@ using VRTK.Highlighters;
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
     [RequireComponent(typeof(TouchableProperty))]
-    public class GrabbableProperty : LockableProperty
+    public class GrabbableProperty : LockableProperty, IGrabbableProperty
     {
         public class GrabbedEventArgs : EventArgs { }
 
-        public event EventHandler<GrabbedEventArgs> Grabbed;
-        public event EventHandler<GrabbedEventArgs> Ungrabbed;
+        public event EventHandler<EventArgs> Grabbed;
+        public event EventHandler<EventArgs> Ungrabbed;
 
         public virtual bool IsGrabbed
         {
