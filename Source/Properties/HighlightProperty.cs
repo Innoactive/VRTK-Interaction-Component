@@ -3,13 +3,13 @@ using UnityEngine;
 using VRTK;
 using VRTK.Highlighters;
 
-namespace Innoactive.Hub.Training.SceneObjects.Properties
+namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
 {
     /// <summary>
     /// Property that is used to highlight training scene objects.
     /// Interaction highlights (e.g. color change when touching an object) are still working properly.
     /// </summary>
-    public class HighlightProperty : TrainingSceneObjectProperty
+    public class HighlightProperty : Properties.HighlightProperty
     {
         /// <summary>
         /// Event data for events of <see cref="HighlightProperty"/>.
@@ -78,7 +78,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         /// Turns on the highlighter with the given <paramref name="highlightColor"/>.
         /// </summary>
         /// <exception cref="NullReferenceException">Thrown, when there is no valid VRTK highlighter and none can be automatically added.</exception>
-        public void Highlight(Color highlightColor = default(Color))
+        public override void Highlight(Color highlightColor = default(Color))
         {
             if (InteractableHighlighter == null && NonInteractableHighlighter == null)
             {
@@ -127,7 +127,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
         /// <summary>
         /// Turns off the highlighter.
         /// </summary>
-        public void Unhighlight()
+        public override void Unhighlight()
         {
             if (InteractableHighlighter != null)
             {

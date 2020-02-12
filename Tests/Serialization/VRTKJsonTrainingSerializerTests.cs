@@ -15,6 +15,7 @@ using Innoactive.Hub.Unity.Tests.Training.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
+using HighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
 
 namespace Innoactive.Hub.Unity.Tests.Training
 {
@@ -58,6 +59,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
         {
             // Given a training with a VRTK highlight behavior
             TrainingSceneObject testObject = TestingUtils.CreateSceneObject("TestObject");
+            testObject.AddTrainingProperty<HighlightProperty>();
 
             ICourse training1 = new LinearTrainingBuilder("Training")
                 .AddChapter(new LinearChapterBuilder("Chapter")
@@ -77,7 +79,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
             Assert.IsNotNull(highlightObjectBehavior);
             Assert.IsNotNull(highlightObjectBehavior2);
             Assert.AreEqual(highlightObjectBehavior.Data.HighlightColor, highlightObjectBehavior2.Data.HighlightColor);
-            Assert.AreEqual(highlightObjectBehavior.Data.Target.Value, highlightObjectBehavior2.Data.Target.Value);
+            Assert.AreEqual(highlightObjectBehavior.Data.ObjectToHighlight, highlightObjectBehavior2.Data.ObjectToHighlight);
 
             // Cleanup
             TestingUtils.DestroySceneObject(testObject);
