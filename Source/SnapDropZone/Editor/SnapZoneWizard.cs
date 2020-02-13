@@ -1,5 +1,4 @@
-﻿using Common.Logging;
-using Innoactive.Hub.Interaction;
+﻿using Innoactive.Hub.Interaction;
 using Innoactive.Hub.Training.SceneObjects.Properties;
 using Innoactive.Hub.Training.Utils;
 using UnityEditor;
