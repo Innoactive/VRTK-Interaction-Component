@@ -15,7 +15,7 @@ namespace Innoactive.Hub.Training.Editors.Windows
     public class SnapZoneWizard : EditorWindow
     {
         private static SnapZoneWizard window;
-        private const string menuPath = "Innoactive/Creator/Utilities/Snap Zone Settings...";
+        private const string menuPath = "Innoactive/Creator/Windows/Snap Zone Settings";
 
         private VRTK_SnapDropZone.SnapTypes snapType;
         private float snapDuration = 0f;
@@ -25,7 +25,7 @@ namespace Innoactive.Hub.Training.Editors.Windows
         private Material highlightMaterial;
         private SnapZoneSettings settings;
 
-        [MenuItem(menuPath, false, 12)]
+        [MenuItem(menuPath, false, 60)]
         private static void ShowWizard()
         {
             window = GetWindow<SnapZoneWizard>();
