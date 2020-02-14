@@ -34,7 +34,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
                 .Build();
 
             // When we serialize and deserialize it,
-            ICourse training2 = Serializer.Deserialize(Serializer.Serialize(training1));
+            ICourse training2 = Serializer.ToCourse(Serializer.ToByte(training1));
 
             // Then that condition's target object and snap zone should stay unchanged.
             SnappedCondition condition1 = training1.Data.FirstChapter.Data.FirstStep.Data.Transitions.Data.Transitions.First().Data.Conditions.First() as SnappedCondition;
@@ -67,8 +67,8 @@ namespace Innoactive.Hub.Unity.Tests.Training
                 .Build();
 
             // When we serialize and deserialize it
-            string serialized = Serializer.Serialize(training1);
-            ICourse training2 = Serializer.Deserialize(serialized);
+            byte[] serialized = Serializer.ToByte(training1);
+            ICourse training2 = Serializer.ToCourse(serialized);
 
             // Then highlight color, duration and target should stay the same.
             HighlightObjectBehavior highlightObjectBehavior = training1.Data.FirstChapter.Data.FirstStep.Data.Behaviors.Data.Behaviors.First() as HighlightObjectBehavior;
@@ -101,8 +101,8 @@ namespace Innoactive.Hub.Unity.Tests.Training
                 .Build();
 
             // When we serialize and deserialize it
-            string serialized = Serializer.Serialize(training1);
-            ICourse training2 = Serializer.Deserialize(serialized);
+            byte[] serialized = Serializer.ToByte(training1);
+            ICourse training2 = Serializer.ToCourse(serialized);
 
             // Then highlight color, duration and target should stay the same.
             VRTKObjectHighlight condition1 = training1.Data.FirstChapter.Data.FirstStep.Data.Behaviors.Data.Behaviors.First() as VRTKObjectHighlight;
