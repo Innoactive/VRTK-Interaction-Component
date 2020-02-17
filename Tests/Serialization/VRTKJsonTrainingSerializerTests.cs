@@ -65,7 +65,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
                 .AddChapter(new LinearChapterBuilder("Chapter")
                     .AddStep(new BasicStepBuilder("Step")
                         .DisableAutomaticAudioHandling()
-                        .AddBehavior(new HighlightObjectBehavior(testObject, Color.green))))
+                        .AddBehavior(new HighlightObjectBehavior(testObject.GetProperty<HighlightProperty>(), Color.green))))
                 .Build();
 
             // When we serialize and deserialize it
@@ -79,7 +79,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
             Assert.IsNotNull(highlightObjectBehavior);
             Assert.IsNotNull(highlightObjectBehavior2);
             Assert.AreEqual(highlightObjectBehavior.Data.HighlightColor, highlightObjectBehavior2.Data.HighlightColor);
-            Assert.AreEqual(highlightObjectBehavior.Data.ObjectToHighlight, highlightObjectBehavior2.Data.ObjectToHighlight);
+            Assert.AreEqual(highlightObjectBehavior.Data.ObjectToHighlight.Value, highlightObjectBehavior2.Data.ObjectToHighlight.Value);
 
             // Cleanup
             TestingUtils.DestroySceneObject(testObject);

@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 #if UNITY_EDITOR
 using System.Collections;
 using UnityEngine.TestTools;
@@ -17,6 +15,7 @@ using Innoactive.Hub.Training.SceneObjects.Properties;
 using Innoactive.Hub.Unity.Tests.Training.Utils;
 using VRTK;
 using Object = UnityEngine.Object;
+using VRTKHighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
 
 namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
 {
@@ -77,10 +76,10 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
         {
             // Given a VRTKObjectHighlight behavior with a game object without a highlighter,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty targetObject = gameObject.AddComponent<Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty>();
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
             targetObject.SceneObject.ChangeUniqueName(targetName);
 
-            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject.SceneObject);
+            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject);
 
             // When we activate it,
             highlight.LifeCycle.Activate();
@@ -100,10 +99,10 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object having a DummyHighlighter as component,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             gameObject.AddComponent<DummyHighlighter>();
-            Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty targetObject = gameObject.AddComponent<Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty>();
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
             targetObject.SceneObject.ChangeUniqueName(targetName);
 
-            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject.SceneObject);
+            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject);
 
             // When we activate it,
             highlight.LifeCycle.Activate();
@@ -121,12 +120,12 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object and a linear chapter,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             DummyHighlighter highlighter = gameObject.AddComponent<DummyHighlighter>();
-            Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty targetObject = gameObject.AddComponent<Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty>();
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
             targetObject.SceneObject.ChangeUniqueName(targetName);
 
             Color highlightColor = Color.yellow;
 
-            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject.SceneObject, highlightColor);
+            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject, highlightColor);
 
             TestLinearChapterBuilder builder = TestLinearChapterBuilder.SetupChapterBuilder(1, true);
             Chapter chapter = builder.Build();
@@ -174,14 +173,14 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object and a linear chapter,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             DummyHighlighter highlighter = gameObject.AddComponent<DummyHighlighter>();
-            Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty targetObject = gameObject.AddComponent<Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty>();
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
             targetObject.SceneObject.ChangeUniqueName(targetName);
             VRTK_InteractableObject interactableProperty = gameObject.AddComponent<VRTK_InteractableObject>();
             VRTK_InteractObjectHighlighter interactObjectHighlighter = gameObject.AddComponent<VRTK_InteractObjectHighlighter>();
 
             Color highlightColor = Color.yellow;
 
-            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject.SceneObject, highlightColor);
+            HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject, highlightColor);
 
             TestLinearChapterBuilder builder = TestLinearChapterBuilder.SetupChapterBuilder(1, true);
             Chapter chapter = builder.Build();
@@ -229,9 +228,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object and a color,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             DummyHighlighter highlighter = gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.AddTrainingProperty<Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
 
             Color highlightColor = Color.cyan;
 
@@ -254,7 +252,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Then the color is changed.
             Assert.AreEqual(highlightColor, highlight.Data.HighlightColor);
             Assert.AreEqual(highlightColor, highlighter.HighlightColor);
-            Assert.AreEqual(highlightColor, ((Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty)highlight.Data.ObjectToHighlight).CurrentHighlightColor);
+            Assert.AreEqual(highlightColor, ((VRTKHighlightProperty)highlight.Data.ObjectToHighlight).CurrentHighlightColor);
         }
 
         [UnityTest]
@@ -263,9 +261,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object and a color,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             DummyHighlighter highlighter = gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.AddTrainingProperty<Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
             
             VRTK_InteractableObject interactableProperty = gameObject.AddComponent<VRTK_InteractableObject>();
             VRTK_InteractObjectHighlighter interactObjectHighlighter = gameObject.AddComponent<VRTK_InteractObjectHighlighter>();
@@ -291,7 +288,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Then the color is changed.
             Assert.AreEqual(highlight.Data.HighlightColor, highlightColor);
             Assert.AreEqual(highlighter.HighlightColor, highlightColor);
-            Assert.AreEqual(highlightColor, ((Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty)highlight.Data.ObjectToHighlight).CurrentHighlightColor);
+            Assert.AreEqual(highlightColor, ((VRTKHighlightProperty)highlight.Data.ObjectToHighlight).CurrentHighlightColor);
         }
 
         [UnityTest]
@@ -311,9 +308,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
 
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             DummyHighlighter highlighter =  gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.AddTrainingProperty<Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject, Color.cyan);
             highlight.Configure(testRuntimeConfiguration.GetCurrentMode());
@@ -324,7 +320,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Then the highlight color is changed.
             Assert.AreEqual(highlightColor, highlight.Data.HighlightColor);
             Assert.AreEqual(highlightColor, highlighter.HighlightColor);
-            Assert.AreEqual(highlightColor, ((Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty)highlight.Data.ObjectToHighlight).CurrentHighlightColor);
+            Assert.AreEqual(highlightColor, ((VRTKHighlightProperty)highlight.Data.ObjectToHighlight).CurrentHighlightColor);
 
             yield break;
         }
@@ -335,8 +331,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior behavior = new HighlightObjectBehavior(targetObject, Color.cyan);
 
@@ -355,8 +351,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior behavior = new HighlightObjectBehavior(targetObject, Color.red);
 
@@ -376,8 +372,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a VRTKObjectHighlight behavior with a proper game object,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior behavior = new HighlightObjectBehavior(targetObject, Color.red);
 
@@ -398,8 +394,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given an active VRTKObjectHighlight behavior with a proper game object,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior behavior = new HighlightObjectBehavior(targetObject, Color.blue);
 
@@ -420,8 +416,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
             // Given a deactivating VRTKObjectHighlight behavior with a proper game object,
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             gameObject.AddComponent<DummyHighlighter>();
-            TrainingSceneObject targetObject = gameObject.AddComponent<TrainingSceneObject>();
-            targetObject.ChangeUniqueName(targetName);
+            VRTKHighlightProperty targetObject = gameObject.AddComponent<VRTKHighlightProperty>();
+            targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior behavior = new HighlightObjectBehavior(targetObject, Color.blue);
             behavior.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
