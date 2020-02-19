@@ -13,8 +13,6 @@ namespace Innoactive.Hub.Interaction
     /// </summary>
     public class ChooseController : MonoBehaviour
     {
-        private static readonly Common.Logging.ILog logger = Logging.LogManager.GetLogger<ChooseController>();
-
         public enum SDKType
         {
             None,
@@ -77,12 +75,12 @@ namespace Innoactive.Hub.Interaction
             }
             if (configSwitcher == null)
             {
-                logger.Error("ChooseController could not find a ControllerConfigSwitcher");
+                Debug.LogError("ChooseController could not find a ControllerConfigSwitcher");
             }
 
             if (VRTK_SDKManager.instance.autoLoadSetup == false)
             {
-                logger.Warn("ChooseController used while VRTK_SDKManager.autoLoadSetup is set to false - this may cause problems!");
+                Debug.LogWarning("ChooseController used while VRTK_SDKManager.autoLoadSetup is set to false - this may cause problems!");
             }
 
             if (applyLastUsedConfigOnAwake && lastUsedSDKType != SDKType.None && lastUsedHMDType != SDK_BaseHeadset.HeadsetType.Undefined)
@@ -123,17 +121,17 @@ namespace Innoactive.Hub.Interaction
             {
                 if (defaultConfig == null)
                 {
-                    logger.WarnFormat("ChooseControllerByType could not find a config for setup \"{0}\" and \"{1}\"", sdkType, headsetType);
+                    Debug.LogWarningFormat("ChooseControllerByType could not find a config for setup \"{0}\" and \"{1}\"", sdkType, headsetType);
                 }
                 else
                 {
-                    logger.InfoFormat("ChooseControllerByType could not find a config for setup \"{0}\" and \"{1}\" - loading default config", sdkType, headsetType);
+                    Debug.LogFormat("ChooseControllerByType could not find a config for setup \"{0}\" and \"{1}\" - loading default config", sdkType, headsetType);
                     configSwitcher.SwitchConfig(defaultConfig);
                 }
             }
             else if (config.config == null)
             {
-                logger.WarnFormat("ChooseControllerByType has no assigned controller config for setup \"{0}\" and \"{1}\"", sdkType, headsetType);
+                Debug.LogWarningFormat("ChooseControllerByType has no assigned controller config for setup \"{0}\" and \"{1}\"", sdkType, headsetType);
             }
             else if (config.config != configSwitcher.CurrentControllerConfig)
             {

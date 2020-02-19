@@ -8,8 +8,6 @@ namespace Innoactive.Hub.Interaction
     /// </summary>
     public class DisableComponentWhenTouching : MonoBehaviour
     {
-        private static readonly Common.Logging.ILog logger = Innoactive.Hub.Logging.LogManager.GetLogger<DisableComponentWhenTouching>();
-
         [SerializeField]
         [Tooltip("When an object is touched, objects in toEnable are disabled, unless this field is true, in which case they are enabled")]
         private bool setWhenTouching = false;
@@ -38,7 +36,7 @@ namespace Innoactive.Hub.Interaction
             }
             else
             {
-                logger.Error("No VRTK_InteractTouch found");
+                Debug.LogError("No VRTK_InteractTouch found");
             }
         }
 

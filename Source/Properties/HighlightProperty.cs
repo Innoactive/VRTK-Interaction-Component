@@ -11,8 +11,6 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
     /// </summary>
     public class HighlightProperty : TrainingSceneObjectProperty
     {
-        private static readonly Common.Logging.ILog logger = Logging.LogManager.GetLogger<HighlightProperty>();
-
         /// <summary>
         /// Event data for events of <see cref="HighlightProperty"/>.
         /// </summary>
@@ -150,7 +148,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
             else
             {
-                logger.Warn("No valid highlighter found. Cannot be unhighlighted.");
+                Debug.LogWarning("No valid highlighter found. Cannot be unhighlighted.");
                 return;
             }
 

@@ -10,8 +10,6 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
     [RequireComponent(typeof(SnapDropZone))]
     public class SnapZoneProperty : LockableProperty
     {
-        private static readonly Common.Logging.ILog logger = Logging.LogManager.GetLogger<SnapZoneProperty>();
-
         public event EventHandler<SnappedEventArgs> ObjectSnapped;
         public event EventHandler<SnappedEventArgs> ObjectUnsnapped;
 
@@ -76,7 +74,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             SnappedObject = args.snappedObject.GetComponent<SnappableProperty>();
             if (SnappedObject == null)
             {
-                logger.WarnFormat("SnapZone '{0}' received snap from object '{1}' without SnappableProperty", SceneObject.UniqueName, args.snappedObject.name);
+                Debug.LogWarningFormat("SnapZone '{0}' received snap from object '{1}' without SnappableProperty", SceneObject.UniqueName, args.snappedObject.name);
             }
             else
             {
