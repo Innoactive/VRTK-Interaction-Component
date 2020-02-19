@@ -9,7 +9,6 @@ using Innoactive.Hub.Training.SceneObjects;
 using Innoactive.Hub.Training.SceneObjects.Properties;
 using Innoactive.Hub.Training.Unity.Utils;
 using Innoactive.Hub.Training.Utils;
-using Newtonsoft.Json;
 
 namespace Innoactive.Hub.Training.Behaviors
 {
@@ -99,7 +98,6 @@ namespace Innoactive.Hub.Training.Behaviors
             }
         }
 
-        [JsonConstructor]
         public VRTKObjectHighlight() : this("", Color.magenta)
         {
         }
