@@ -11,7 +11,6 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
     [RequireComponent(typeof(SnapDropZone))]
     public class SnapZoneProperty : LockableProperty, ISnapZoneProperty
     {
-
         public event EventHandler<SnappedEventArgs> ObjectSnapped;
         public event EventHandler<SnappedEventArgs> ObjectUnsnapped;
 

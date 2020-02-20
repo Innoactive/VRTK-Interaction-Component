@@ -48,8 +48,8 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
                 IsHighlighted = false;
             }
 
-            public event EventHandler<HighlightProperty.HighlightEventArgs> ObjectHighlighted;
-            public event EventHandler<HighlightProperty.HighlightEventArgs> ObjectUnhighlighted;
+            public event EventHandler<BaseHighlightProperty.HighlightEventArgs> ObjectHighlighted;
+            public event EventHandler<BaseHighlightProperty.HighlightEventArgs> ObjectUnhighlighted;
 
             public Color? CurrentHighlightColor
             {

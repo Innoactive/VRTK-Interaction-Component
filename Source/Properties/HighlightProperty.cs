@@ -9,7 +9,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
     /// Property that is used to highlight training scene objects.
     /// Interaction highlights (e.g. color change when touching an object) are still working properly.
     /// </summary>
-    public class HighlightProperty : Properties.HighlightProperty
+    public class HighlightProperty : BaseHighlightProperty
     {
         /// <summary>
         /// Event data for events of <see cref="HighlightProperty"/>.
@@ -19,7 +19,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
         /// <summary>
         /// Emitted when the object gets highlighted.
         /// </summary>
-        public event EventHandler<HighlightEventArgs> ObjectHighlighted;
+        public event EventHandler<BaseHighlightProperty.HighlightEventArgs> ObjectHighlighted;
 
         /// <summary>
         /// Emitted when the object gets unhighlighted.
@@ -120,7 +120,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
 
             if (ObjectHighlighted != null)
             {
-                ObjectHighlighted.Invoke(this, new HighlightEventArgs());
+                ObjectHighlighted.Invoke(this, new BaseHighlightProperty.HighlightEventArgs());
             }
         }
 
