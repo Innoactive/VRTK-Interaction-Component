@@ -97,6 +97,14 @@ namespace Innoactive.Hub.Interaction
             {
                 return;
             }
+            
+#if UNITY_2019_3_OR_NEWER
+            if (IsObjectSuppressed(collider.gameObject))
+            {
+                ResetSuppressedTriggerEventObject();
+                return;
+            }
+#endif
 
             // If the current valid snapped object is the collider leaving the trigger then attempt to turn off the highlighter.
             if (IsObjectHovering(collider.gameObject))
