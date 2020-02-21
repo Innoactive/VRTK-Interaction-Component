@@ -6,11 +6,12 @@ using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
+    /// <summary>
+    /// VRTK implementation of the IUsableProperty.
+    /// </summary>
     [RequireComponent(typeof(TouchableProperty))]
     public class UsableProperty : LockableProperty, IUsableProperty
     {
-        public class UsedEventArgs : EventArgs { }
-
         public event EventHandler<EventArgs> UsageStarted;
         public event EventHandler<EventArgs> UsageStopped;
 
@@ -103,18 +104,12 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
 
         protected void EmitUsageStarted()
         {
-            if (UsageStarted != null)
-            {
-                UsageStarted.Invoke(this, new UsedEventArgs());
-            }
+            UsageStarted?.Invoke(this, EventArgs.Empty);
         }
 
         protected void EmitUsageStopped()
         {
-            if (UsageStopped != null)
-            {
-                UsageStopped.Invoke(this, new UsedEventArgs());
-            }
+            UsageStopped?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void InternalSetLocked(bool lockState)

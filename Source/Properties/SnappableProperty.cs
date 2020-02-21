@@ -7,22 +7,18 @@ using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
+    /// <summary>
+    /// VRTK implementation of the ISnappableProperty.
+    /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(GrabbableProperty))]
     public class SnappableProperty : TrainingSceneObjectProperty, ISnappableProperty
     {
-        public class SnappedEventArgs : EventArgs
-        {
-            public readonly ISnapZoneProperty SnapZone;
-            
-            public SnappedEventArgs(ISnapZoneProperty snapZone)
-            {
-                SnapZone = snapZone;
-            }
-        }
-
         public event EventHandler<EventArgs> Snapped;
         public event EventHandler<EventArgs> Unsnapped;
 
+        /// <summary>
+        /// Returns true if the Snappable object is snapped.
+        /// </summary>
         public bool IsSnapped
         {
             get
@@ -31,6 +27,9 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
         }
 
+        /// <summary>
+        /// Will return the ISnapZoneProperty of the SnapZone which snapped this object.
+        /// </summary>
         public ISnapZoneProperty SnappedZone { get; set; }
 
         [SerializeField]
@@ -80,7 +79,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
         }
 
-        protected virtual void HandleSnappedToDropZone(object sender, InteractableObjectEventArgs args)
+        protected void HandleSnappedToDropZone(object sender, InteractableObjectEventArgs args)
         {
             SnappedZone = args.interactingObject.GetComponent<SnapZoneProperty>();
 
@@ -96,8 +95,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
             EmitSnapped(SnappedZone);
         }
-
-        protected virtual void HandleUnsnappedFromDropZone(object sender, InteractableObjectEventArgs args)
+        protected void HandleUnsnappedFromDropZone(object sender, InteractableObjectEventArgs args)
         {
             if (SnappedZone == null)
             {
@@ -111,18 +109,12 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
 
         protected void EmitSnapped(ISnapZoneProperty snapZone)
         {
-            if (Snapped != null)
-            {
-                Snapped.Invoke(this, new SnappedEventArgs(snapZone));
-            }
+            Snapped?.Invoke(this, EventArgs.Empty);
         }
 
         protected void EmitUnsnapped(ISnapZoneProperty snapZone)
         {
-            if (Unsnapped != null)
-            {
-                Unsnapped.Invoke(this, new SnappedEventArgs(snapZone));
-            }
+            Unsnapped?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

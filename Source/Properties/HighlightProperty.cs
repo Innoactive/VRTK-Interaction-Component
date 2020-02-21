@@ -12,21 +12,6 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
     public class HighlightProperty : BaseHighlightProperty
     {
         /// <summary>
-        /// Event data for events of <see cref="HighlightProperty"/>.
-        /// </summary>
-        public class HighlightEventArgs : EventArgs { }
-
-        /// <summary>
-        /// Emitted when the object gets highlighted.
-        /// </summary>
-        public event EventHandler<BaseHighlightProperty.HighlightEventArgs> ObjectHighlighted;
-
-        /// <summary>
-        /// Emitted when the object gets unhighlighted.
-        /// </summary>
-        public event EventHandler<HighlightEventArgs> ObjectUnhighlighted;
-
-        /// <summary>
         /// Returns the highlight color, if the object is currently highlighted.
         /// Returns null, otherwise.
         /// </summary>
@@ -117,11 +102,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
             }
 
             CurrentHighlightColor = highlightColor;
-
-            if (ObjectHighlighted != null)
-            {
-                ObjectHighlighted.Invoke(this, new BaseHighlightProperty.HighlightEventArgs());
-            }
+            EmitHighlightEvent();
         }
 
         /// <summary>
@@ -153,11 +134,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
             }
 
             CurrentHighlightColor = null;
-
-            if (ObjectUnhighlighted != null)
-            {
-                ObjectUnhighlighted.Invoke(this, new HighlightEventArgs());
-            }
+            EmitUnhighlightEvent();
         }
 
         /// <summary>
