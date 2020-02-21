@@ -1,9 +1,9 @@
 ﻿﻿using Innoactive.Hub.Interaction;
 using System;
- using Innoactive.Hub.Training.Configuration;
+using Innoactive.Hub.Training.Configuration;
 using Innoactive.Hub.Training.Configuration.Modes;
- using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
- using UnityEngine;
+using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+using UnityEngine;
 using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties

@@ -1,5 +1,4 @@
 ﻿using System;
-using Innoactive.Hub.Unity;
 using UnityEngine;
 using VRTK;
 
