@@ -6,7 +6,7 @@ using Innoactive.Hub.Training.Attributes;
 using Innoactive.Hub.Training.Configuration;
 using Innoactive.Hub.Training.Configuration.Modes;
 using Innoactive.Hub.Training.SceneObjects;
-using Innoactive.Hub.Training.SceneObjects.Properties;
+using Innoactive.Hub.Training.SceneObjects.Properties.VRTK;
 using Innoactive.Hub.Training.Unity.Utils;
 using Innoactive.Hub.Training.Utils;
 

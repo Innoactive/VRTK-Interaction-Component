@@ -1,15 +1,15 @@
 #if UNITY_EDITOR
 
-using System;
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
 using Innoactive.Hub.Training;
-using Innoactive.Hub.Training.Behaviors;
 using Innoactive.Hub.Training.Conditions;
+using Innoactive.Hub.Training.Interaction.Conditions;
 using Innoactive.Hub.Training.SceneObjects;
 using Innoactive.Hub.Training.SceneObjects.Properties;
 using Innoactive.Hub.Training.Utils.Builders;
+using Innoactive.Hub.Training.Utils.Interaction.Builders;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
@@ -30,7 +30,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
 
             LinearTrainingBuilder builder = new LinearTrainingBuilder("TestTraining")
                 .AddChapter(new LinearChapterBuilder("TestChapter")
-                    .AddStep(DefaultSteps.Grab("TestGrabStep", "Grabbable")));
+                    .AddStep(InteractionDefaultSteps.Grab("TestGrabStep", "Grabbable")));
 
             // When we build a training from it
             IStep step = builder.Build().Data.FirstChapter.Data.FirstStep;
@@ -65,7 +65,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
 
             LinearTrainingBuilder builder = new LinearTrainingBuilder("TestTraining")
                 .AddChapter(new LinearChapterBuilder("TestChapter")
-                    .AddStep(DefaultSteps.PutIntoSnapZone("TestSnapZonePutStep", "SnapZone", "ToPut")));
+                    .AddStep(InteractionDefaultSteps.PutIntoSnapZone("TestSnapZonePutStep", "SnapZone", "ToPut")));
 
             // When you build a training with it
             IStep step = builder.Build().Data.FirstChapter.Data.FirstStep;
@@ -95,7 +95,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
 
             LinearTrainingBuilder builder = new LinearTrainingBuilder("TestTraining")
                 .AddChapter(new LinearChapterBuilder("TestChapter")
-                    .AddStep(DefaultSteps.Use("TestUseStep", "Usable")));
+                    .AddStep(InteractionDefaultSteps.Use("TestUseStep", "Usable")));
 
             // When you build a training with it
             IStep step = builder.Build().Data.FirstChapter.Data.FirstStep;
@@ -124,7 +124,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
 
             LinearTrainingBuilder builder = new LinearTrainingBuilder("TestTraining")
                 .AddChapter(new LinearChapterBuilder("TestChapter")
-                    .AddStep(DefaultSteps.Touch("TestTouchStep", "Touchable")));
+                    .AddStep(InteractionDefaultSteps.Touch("TestTouchStep", "Touchable")));
 
             // When you build a training with it
             IStep step = builder.Build().Data.FirstChapter.Data.FirstStep;

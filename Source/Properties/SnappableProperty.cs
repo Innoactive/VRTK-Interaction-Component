@@ -1,26 +1,24 @@
 ﻿﻿﻿using Innoactive.Hub.Interaction;
 using System;
-using Innoactive.Hub.Training.Unity.Utils;
+  using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+  using Innoactive.Hub.Training.Unity.Utils;
 using UnityEngine;
 using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
+    /// <summary>
+    /// VRTK implementation of the ISnappableProperty.
+    /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(GrabbableProperty))]
-    public class SnappableProperty : TrainingSceneObjectProperty
+    public class SnappableProperty : TrainingSceneObjectProperty, ISnappableProperty
     {
-        public class SnappedEventArgs : EventArgs
-        {
-            public readonly SnapZoneProperty SnapZone;
-            public SnappedEventArgs(SnapZoneProperty snapZone)
-            {
-                SnapZone = snapZone;
-            }
-        }
+        public event EventHandler<EventArgs> Snapped;
+        public event EventHandler<EventArgs> Unsnapped;
 
-        public event EventHandler<SnappedEventArgs> Snapped;
-        public event EventHandler<SnappedEventArgs> Unsnapped;
-
+        /// <summary>
+        /// Returns true if the Snappable object is snapped.
+        /// </summary>
         public bool IsSnapped
         {
             get
@@ -29,7 +27,10 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
         }
 
-        public SnapZoneProperty SnappedZone { get; protected set; }
+        /// <summary>
+        /// Will return the ISnapZoneProperty of the SnapZone which snapped this object.
+        /// </summary>
+        public ISnapZoneProperty SnappedZone { get; set; }
 
         [SerializeField]
         private bool lockObjectOnSnap = false;
@@ -78,7 +79,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
         }
 
-        protected virtual void HandleSnappedToDropZone(object sender, InteractableObjectEventArgs args)
+        protected void HandleSnappedToDropZone(object sender, InteractableObjectEventArgs args)
         {
             SnappedZone = args.interactingObject.GetComponent<SnapZoneProperty>();
 
@@ -94,51 +95,46 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
             EmitSnapped(SnappedZone);
         }
-
-        protected virtual void HandleUnsnappedFromDropZone(object sender, InteractableObjectEventArgs args)
+        protected void HandleUnsnappedFromDropZone(object sender, InteractableObjectEventArgs args)
         {
             if (SnappedZone == null)
             {
                 return;
             }
 
-            SnapZoneProperty previouslySnappedZone = SnappedZone;
+            ISnapZoneProperty previouslySnappedZone = SnappedZone;
             SnappedZone = null;
             EmitUnsnapped(previouslySnappedZone);
         }
 
-        protected void EmitSnapped(SnapZoneProperty snapZone)
+        protected void EmitSnapped(ISnapZoneProperty snapZone)
         {
-            if (Snapped != null)
-            {
-                Snapped.Invoke(this, new SnappedEventArgs(snapZone));
-            }
+            Snapped?.Invoke(this, EventArgs.Empty);
         }
 
-        protected void EmitUnsnapped(SnapZoneProperty snapZone)
+        protected void EmitUnsnapped(ISnapZoneProperty snapZone)
         {
-            if (Unsnapped != null)
-            {
-                Unsnapped.Invoke(this, new SnappedEventArgs(snapZone));
-            }
+            Unsnapped?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
         /// Instantaneously snap the object into <paramref name="snapZone"/>
         /// </summary>
-        public void FastForwardSnapInto(SnapZoneProperty snapZone)
+        public void FastForwardSnapInto(ISnapZoneProperty snapZone)
         {
             if (SnappedZone != null)
             {
-                SnappedZone.SnapZone.ForceUnsnap();
+                SnappedZone.SnapZoneObject.GetComponent<SnapDropZone>().ForceUnsnap();
             }
 
-            if (snapZone.SnapZone.GetCurrentSnappedInteractableObject() != null)
+            SnapDropZone snapDropZone = snapZone.SnapZoneObject.GetComponent<SnapDropZone>();
+
+            if (snapDropZone.GetCurrentSnappedInteractableObject() != null)
             {
-                snapZone.SnapZone.ForceUnsnap();
+                snapDropZone.ForceUnsnap();
             }
 
-            snapZone.SnapZone.ForceSnapObjectWithoutTransition(gameObject);
+            snapDropZone.ForceSnapObjectWithoutTransition(gameObject);
         }
     }
 }

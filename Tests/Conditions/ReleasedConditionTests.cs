@@ -3,6 +3,7 @@
 using System.Collections;
 using Innoactive.Hub.Training;
 using Innoactive.Hub.Training.Conditions;
+using Innoactive.Hub.Training.Interaction.Conditions;
 using Innoactive.Hub.Training.SceneObjects.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;

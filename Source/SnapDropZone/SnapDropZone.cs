@@ -1,5 +1,4 @@
 ﻿using System;
-using Innoactive.Hub.Unity;
 using UnityEngine;
 using VRTK;
 
@@ -67,11 +66,11 @@ namespace Innoactive.Hub.Interaction
                     {
                         if (zone.currentSnappedObject)
                         {
-                            GameObject.Destroy(zone.currentSnappedObject);
+                            Destroy(zone.currentSnappedObject);
                         }
                     }
                 }
-                GameObject.Destroy(currentSnappedObject);
+                Destroy(currentSnappedObject);
                 ForceStaySnapped = false;
             }
         }
