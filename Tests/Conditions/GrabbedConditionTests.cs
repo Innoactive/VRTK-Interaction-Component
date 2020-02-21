@@ -1,6 +1,7 @@
 ﻿
 
 using Innoactive.Hub.Training;
+using Innoactive.Hub.Training.Interaction.Conditions;
 #if UNITY_EDITOR
 using System.Collections;
 using Innoactive.Hub.Training.Conditions;

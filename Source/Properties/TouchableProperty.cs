@@ -1,17 +1,22 @@
 ﻿﻿using Innoactive.Hub.Interaction;
 using System;
-using UnityEngine;
+ using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+ using UnityEngine;
 using VRTK;
 
  namespace Innoactive.Hub.Training.SceneObjects.Properties
-{
-    public class TouchableProperty : LockableProperty
+{ 
+    /// <summary>
+    /// VRTK implementation of the ITouchableProperty.
+    /// </summary>
+    public class TouchableProperty : LockableProperty, ITouchableProperty
     {
-        public class TouchedEventArgs : EventArgs { }
+        public event EventHandler<EventArgs> Touched;
+        public event EventHandler<EventArgs> Untouched;
 
-        public event EventHandler<TouchedEventArgs> Touched;
-        public event EventHandler<TouchedEventArgs> Untouched;
-
+        /// <summary>
+        /// Returns true if the GameObject is touched.
+        /// </summary>
         public virtual bool IsBeingTouched
         {
             get
@@ -93,18 +98,12 @@ using VRTK;
 
         protected void EmitTouched()
         {
-            if (Touched != null)
-            {
-                Touched.Invoke(this, new TouchedEventArgs());
-            }
+            Touched?.Invoke(this, EventArgs.Empty);
         }
 
         protected void EmitUntouched()
         {
-            if (Untouched != null)
-            {
-                Untouched.Invoke(this, new TouchedEventArgs());
-            }
+            Untouched?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void InternalSetLocked(bool lockState)

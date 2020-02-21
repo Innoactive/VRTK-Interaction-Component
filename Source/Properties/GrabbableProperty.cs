@@ -1,20 +1,25 @@
 ﻿﻿using Innoactive.Hub.Interaction;
 using System;
-using UnityEngine;
+ using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+ using UnityEngine;
 using VRTK;
 using VRTK.GrabAttachMechanics;
 using VRTK.Highlighters;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
+    /// <summary>
+    /// VRTK implementation of the IGrabbableProperty.
+    /// </summary>
     [RequireComponent(typeof(TouchableProperty))]
-    public class GrabbableProperty : LockableProperty
+    public class GrabbableProperty : LockableProperty, IGrabbableProperty
     {
-        public class GrabbedEventArgs : EventArgs { }
+        public event EventHandler<EventArgs> Grabbed;
+        public event EventHandler<EventArgs> Ungrabbed;
 
-        public event EventHandler<GrabbedEventArgs> Grabbed;
-        public event EventHandler<GrabbedEventArgs> Ungrabbed;
-
+        /// <summary>
+        /// Returns true if the Interactable of this property is grabbed.
+        /// </summary>
         public virtual bool IsGrabbed
         {
             get
@@ -55,8 +60,8 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
 
             interactable.isGrabbable = true;
 
-            interactable.InteractableObjectGrabbed += HandleVrtkGrabbed;
-            interactable.InteractableObjectUngrabbed += HandleVrtkUngrabbed;
+            interactable.InteractableObjectGrabbed += HandleVRTKGrabbed;
+            interactable.InteractableObjectUngrabbed += HandleVRTKUngrabbed;
         }
 
         protected override void OnDisable()
@@ -68,34 +73,28 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
                 return;
             }
 
-            interactable.InteractableObjectGrabbed -= HandleVrtkGrabbed;
-            interactable.InteractableObjectUngrabbed -= HandleVrtkUngrabbed;
+            interactable.InteractableObjectGrabbed -= HandleVRTKGrabbed;
+            interactable.InteractableObjectUngrabbed -= HandleVRTKUngrabbed;
         }
 
-        private void HandleVrtkGrabbed(object sender, InteractableObjectEventArgs args)
+        private void HandleVRTKGrabbed(object sender, InteractableObjectEventArgs args)
         {
             EmitGrabbed();
         }
 
-        private void HandleVrtkUngrabbed(object sender, InteractableObjectEventArgs args)
+        private void HandleVRTKUngrabbed(object sender, InteractableObjectEventArgs args)
         {
             EmitUngrabbed();
         }
 
         protected void EmitGrabbed()
         {
-            if (Grabbed != null)
-            {
-                Grabbed.Invoke(this, new GrabbedEventArgs());
-            }
+            Grabbed?.Invoke(this, EventArgs.Empty);
         }
 
         protected void EmitUngrabbed()
         {
-            if (Ungrabbed != null)
-            {
-                Ungrabbed.Invoke(this, new GrabbedEventArgs());
-            }
+            Ungrabbed?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void InternalSetLocked(bool lockState)

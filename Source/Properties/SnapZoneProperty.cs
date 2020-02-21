@@ -2,16 +2,20 @@
 using System;
 using Innoactive.Hub.Training.Configuration;
 using Innoactive.Hub.Training.Configuration.Modes;
+using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
 using UnityEngine;
 using VRTK;
 
 namespace Innoactive.Hub.Training.SceneObjects.Properties
 {
+    /// <summary>
+    /// VRTK implementation of the ISnapZoneProperty.
+    /// </summary>
     [RequireComponent(typeof(SnapDropZone))]
-    public class SnapZoneProperty : LockableProperty
+    public class SnapZoneProperty : LockableProperty, ISnapZoneProperty
     {
-        public event EventHandler<SnappedEventArgs> ObjectSnapped;
-        public event EventHandler<SnappedEventArgs> ObjectUnsnapped;
+        public event EventHandler<EventArgs> ObjectSnapped;
+        public event EventHandler<EventArgs> ObjectUnsnapped;
 
         private GameObject highlightPrefab;
 
@@ -27,7 +31,19 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties
             }
         }
 
-        public SnappableProperty SnappedObject { get; protected set; }
+        public ISnappableProperty SnappedObject { get; set; }
+
+        public GameObject SnapZoneObject
+        {
+            get
+            {
+                if (SnapZone != null)
+                {
+                    return SnapZone.gameObject;
+                }
+                return null;
+            }
+        }
 
         public SnapDropZone SnapZone { get; protected set; }
 
