@@ -9,10 +9,12 @@ resources:
     type: github
     endpoint: Innoactive
     name: Innoactive/Creator
+    ref: develop-2019
   - repository: BasicInteraction
     type: github
     endpoint: Innoactive
     name: Innoactive/Basic-Interaction-Component
+    ref: develop
   - repository: UnityProject
     type: github
     endpoint: Innoactive
