@@ -5,10 +5,10 @@
 
 resources:
   repositories:
-  - repository: VRTKInteraction
+  - repository: Creator
     type: github
     endpoint: Innoactive
-    name: Innoactive/VRTK-Interaction-Component
+    name: Innoactive/Creator
   - repository: BasicInteraction
     type: github
     endpoint: Innoactive
@@ -38,11 +38,11 @@ jobs:
   steps:
   - checkout: UnityProject
     lfs: true
-  - checkout: self
+  - checkout: Creator
     lfs: true
   - checkout: BasicInteraction
     lfs: true
-  - checkout: VRTKInteraction
+  - checkout: self
     lfs: true
   - task: CopyFiles@2
     inputs:
