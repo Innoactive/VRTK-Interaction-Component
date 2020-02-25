@@ -1,0 +1,112 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+resources:
+  repositories:
+  - repository: VRTKInteraction
+    type: github
+    endpoint: Innoactive
+    name: Innoactive/VRTK-Interaction-Component
+  - repository: BasicInteraction
+    type: github
+    endpoint: Innoactive
+    name: Innoactive/Basic-Interaction-Component
+  - repository: UnityProject
+    type: github
+    endpoint: Innoactive
+    name: Innoactive/Empty-Unity-Project-2019
+    ref: develop
+
+trigger:
+- master
+
+pool: SelfHosted
+
+variables:
+- name: version-tag
+  value: 2.0.0
+- name: exportConfig
+  value: vrtk-export
+- group: basic-unity
+
+jobs:
+- job:
+  workspace:
+    clean: all
+  steps:
+  - checkout: UnityProject
+    lfs: true
+  - checkout: self
+    lfs: true
+  - checkout: BasicInteraction
+    lfs: true
+  - checkout: VRTKInteraction
+    lfs: true
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'Empty-Unity-Project-2019/'
+      Contents: '**'
+      TargetFolder: '$(pathProject)'
+    displayName: Copy base Project
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'Creator/'
+      Contents: '**'
+      TargetFolder: '$(pathCreator)/Core'
+    displayName: Copy Creator Core
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'Basic-Interaction-Component/'
+      Contents: '**'
+      TargetFolder: '$(pathCreator)/Components/Basic-Interaction'
+    displayName: Copy Basic Interaction Component
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: 'VRTK-Interaction-Component/'
+      Contents: '**'
+      TargetFolder: '$(pathCreator)/Components/VRTK-Interaction'
+    displayName: Copy VRTK Interaction Component
+  - task: DeleteFiles@1
+    inputs:
+      Contents: '!(Project)'
+    displayName: Clean Up
+
+# Build
+  - powershell: |
+      u3d available -f
+      u3d install $(unityVersion)
+      u3d run -u $(unityVersion) -- -projectPath './Project' -logFile $(Build.ArtifactStagingDirectory)/logs/editor-build.log -nographics -quit -batchmode -buildWindows64Player Build\\TestBuild\\TestBuild.exe
+    displayName: Build Project
+
+# Test
+  - powershell: | 
+      u3d run -u $(unityVersion) -- -logFile $(Build.ArtifactStagingDirectory)/logs/editor_editmode_tests.log -batchmode -runTests -testPlatform editmode -testResults $(System.DefaultWorkingDirectory)\TEST-EditMode.xml
+      u3d run -u $(unityVersion) -- -logFile $(Build.ArtifactStagingDirectory)/logs/editor_playmode_tests.log -batchmode -runTests -testPlatform playmode -testResults $(System.DefaultWorkingDirectory)\TEST-PlayMode.xml  
+    displayName: Run Tests
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'NUnit'
+      testResultsFiles: 'TEST-*.xml'
+
+# Export
+  - powershell: |
+      ((Get-Content -path Project\$(exportConfig).json -Raw) -replace '{version}','$(version-tag)') | Set-Content -Path Project\$(exportConfig).json
+      u3d run -u $(unityVersion) -- -logFile $(Build.ArtifactStagingDirectory)/logs/editor_export.log -batchmode -quit -executeMethod Innoactive.Hub.Training.Editors.Utils.PackageExporter.Export --export-config $(exportConfig).json
+    displayName: Export Unity package
+
+# Publish
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/packages/'
+      artifact: 'creator-vrtk-interaction-unitypackage'
+      publishLocation: 'pipeline'
+    displayName: "Publish Unity Package"
+  - task: PublishPipelineArtifact@1
+    condition: always()
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/logs/'
+      artifact: 'creator-vrtk-logs'
+      publishLocation: 'pipeline'
+    displayName: "Pubslish Logs"
