@@ -849,7 +849,9 @@ namespace VRTK
             Quaternion startRotation = ioTransform.rotation;
             Vector3 startScale = ioTransform.localScale;
             bool storedKinematicState = ioCheck.isKinematic;
+#if UNITY_2019_3_OR_NEWER
             SetObjectToSuppressTriggerEvent(ioCheck.gameObject);
+#endif
             ioCheck.isKinematic = true;
             while (elapsedTime <= duration)
             {
@@ -870,8 +872,9 @@ namespace VRTK
                 ioTransform.rotation = endSettings.transform.rotation;
                 ioTransform.localScale = endScale;
             }
-
+#if UNITY_2019_3_OR_NEWER
             SetObjectToSuppressTriggerEvent(ioCheck.gameObject);
+#endif
             ioCheck.isKinematic = storedKinematicState;
             SetDropSnapType(ioCheck);
         }
