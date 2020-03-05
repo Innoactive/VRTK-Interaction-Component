@@ -1,0 +1,19 @@
+{
+    "name": "Innoactive.Creator.VRTK-Interaction.Editor",
+    "references": [
+        "GUID:c8561f9de838ac04d8feeda695bc572d",
+        "GUID:149d7890bed6f6541bd9c964918f1d01",
+        "GUID:5907d0959af934345b9d18d84d8fa0f7"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
