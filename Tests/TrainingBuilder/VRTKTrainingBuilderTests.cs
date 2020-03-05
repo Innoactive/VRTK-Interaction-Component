@@ -1,5 +1,3 @@
-#if UNITY_EDITOR
-
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
@@ -14,7 +12,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Innoactive.Hub.Unity.Tests.Training
+namespace Innoactive.Creator.Core.Tests.Utils
 {
     public class VRTKTrainingBuilderTests : RuntimeTests
     {
@@ -143,4 +141,3 @@ namespace Innoactive.Hub.Unity.Tests.Training
         }
     }
 }
-#endif

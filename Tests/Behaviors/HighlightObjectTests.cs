@@ -1,5 +1,4 @@
 ﻿using System;
-#if UNITY_EDITOR
 using System.Collections;
 using UnityEngine.TestTools;
 using UnityEngine;
@@ -10,14 +9,13 @@ using Innoactive.Hub.Training;
 using Innoactive.Hub.Training.Behaviors;
 using Innoactive.Hub.Training.Configuration;
 using Innoactive.Hub.Training.Configuration.Modes;
-using Innoactive.Hub.Training.SceneObjects;
 using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Hub.Unity.Tests.Training.Utils;
+using Innoactive.Creator.Core.Tests.Utils;
 using VRTK;
 using Object = UnityEngine.Object;
 using VRTKHighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
 
-namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
+namespace Innoactive.Creator.Core.Tests.Behaviors
 {
     public class HighlightObjectTests : RuntimeTests
     {
@@ -440,4 +438,3 @@ namespace Innoactive.Hub.Unity.Tests.Training.Behaviors
         }
     }
 }
-#endif

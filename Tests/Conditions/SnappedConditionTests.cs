@@ -1,21 +1,17 @@
-﻿
-
-using VRTK;
-#if UNITY_EDITOR
+﻿using VRTK;
 using System.Collections;
 using System.Collections.Generic;
-using Innoactive.Hub.Interaction;
 using Innoactive.Hub.Training;
 using Innoactive.Hub.Training.Conditions;
 using Innoactive.Hub.Training.Configuration;
 using Innoactive.Hub.Training.Configuration.Modes;
 using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Hub.Unity.Tests.Training.Utils;
+using Innoactive.Creator.Core.Tests.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 
-namespace Innoactive.Hub.Unity.Tests.Training.Conditions
+namespace Innoactive.Creator.Core.Tests.Conditions
 {
     public class SnappedConditionTests : RuntimeTests
     {
@@ -397,4 +393,3 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
         }
     }
 }
-#endif
