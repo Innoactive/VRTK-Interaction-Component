@@ -7,12 +7,14 @@
         "GUID:880cbf18a8d0b304e905a848d71cf547",
         "GUID:474da18fc7b8c9c4c9db09e343483375",
         "GUID:5dc10662f790e4e49944b5fb3f5daeea",
-        "GUID:149d7890bed6f6541bd9c964918f1d01",
+        "GUID:63918bccfc0480041a5eeeeb04a3e2ee",
         "GUID:0d6de489d9511c1409be2d279f82ed7f",
         "GUID:5907d0959af934345b9d18d84d8fa0f7"
     ],
     "includePlatforms": [],
-    "excludePlatforms": [],
+    "excludePlatforms": [
+        "Stadia"
+    ],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
