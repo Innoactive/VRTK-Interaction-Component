@@ -47,6 +47,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
             }
 
             GameObject snapZoneBlueprint = DuplicateObject(snappable.gameObject);
+            
             SetHighlightMaterial(snapZoneBlueprint, settings.HighlightMaterial);
 
             if (AssetDatabase.IsValidFolder(prefabPath) == false)
@@ -72,12 +73,15 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
 #endif
             snapZonePrefab.transform.localScale = Vector3.one;
 
-            snapZoneBlueprint.name = snappable.name + "SnapZone";
+            snapZoneBlueprint.transform.localScale = Vector3.one;
             snapZoneBlueprint.transform.position = Vector3.zero;
             snapZoneBlueprint.transform.rotation = Quaternion.identity;
+            
+            GameObject snapZone = new GameObject(snappable.name + "SnapZone");
+            EditorUtility.CopySerialized(snappable.transform, snapZone.transform);
 
-            snapZoneBlueprint.AddComponent<SnapZoneProperty>();
-            SnapDropZone snapDropZone = snapZoneBlueprint.GetComponent<SnapDropZone>();
+            snapZone.AddComponent<SnapZoneProperty>();
+            SnapDropZone snapDropZone = snapZone.GetComponent<SnapDropZone>();
             snapDropZone.snapType = settings.SnapType;
             snapDropZone.highlightColor = settings.HighlightColor;
             snapDropZone.validHighlightColor = settings.ValidHighlightColor;
@@ -85,15 +89,23 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
             snapDropZone.snapDuration = settings.SnapDuration;
             snapDropZone.highlightObjectPrefab = snapZonePrefab;
 
+            Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
+            if (snapZoneBlueprint.transform.GetComponent<Renderer>() != null)
+            {
+                bounds.Encapsulate(snapZoneBlueprint.transform.GetComponent<Renderer>().bounds);
+            }
+            
             foreach (Renderer renderer in snapZoneBlueprint.GetComponentsInChildren<Renderer>())
             {
-                renderer.enabled = false;
+                bounds.Encapsulate(renderer.bounds);
             }
 
-            foreach (Collider collider in snapZoneBlueprint.GetComponentsInChildren<Collider>())
-            {
-                collider.isTrigger = true;
-            }
+            BoxCollider boxCollider = snapZone.AddComponent<BoxCollider>();
+            boxCollider.center = bounds.center;
+            boxCollider.size = bounds.size;
+            boxCollider.isTrigger = true;
+            
+            DestroyImmediate(snapZoneBlueprint);
         }
 
         private GameObject DuplicateObject(GameObject originalObject)
@@ -110,8 +122,15 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
             foreach (Transform child in sourceParent.transform)
             {
                 GameObject newChild = new GameObject(child.name);
-                newChild.transform.SetParent(destinationParent.transform);
                 CopyComponentsNeededForSnapZone(child.gameObject, newChild);
+                // Kill child if empty
+                if (child.transform.childCount == 0 && newChild.GetComponents<Component>().Length <= 1)
+                {
+                    DestroyImmediate(newChild);
+                    continue;
+                }
+                
+                newChild.transform.SetParent(destinationParent.transform, false);
                 CreateChildObjects(child.gameObject, newChild);
             }
         }
@@ -146,8 +165,7 @@ namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
         {
             return component.GetType() == typeof(MeshRenderer) ||
                    component.GetType() == typeof(Transform) ||
-                   component.GetType() == typeof(MeshFilter) ||
-                   component is Collider;
+                   component.GetType() == typeof(MeshFilter);
         }
 
         private void SetHighlightMaterial(GameObject snapZonePrefab, Material highlightMaterial)
