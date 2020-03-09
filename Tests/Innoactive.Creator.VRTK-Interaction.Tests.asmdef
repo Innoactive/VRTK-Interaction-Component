@@ -12,9 +12,7 @@
         "GUID:5907d0959af934345b9d18d84d8fa0f7"
     ],
     "includePlatforms": [],
-    "excludePlatforms": [
-        "Stadia"
-    ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
