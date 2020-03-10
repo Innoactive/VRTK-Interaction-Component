@@ -15,7 +15,7 @@ using VRTK;
 using Object = UnityEngine.Object;
 using VRTKHighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
 
-namespace Innoactive.Creator.Core.Tests.Behaviors
+namespace Innoactive.Creator.VRTK-Interaction.Tests.Behaviors
 {
     public class HighlightObjectTests : RuntimeTests
     {

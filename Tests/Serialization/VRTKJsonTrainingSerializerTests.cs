@@ -12,7 +12,7 @@ using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 using HighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
 
-namespace Innoactive.Creator.Core.Tests.Utils
+namespace Innoactive.Creator.VRTK-Interaction.Tests.Utils
 {
     public class VRTKJsonTrainingSerializerTests : RuntimeTests
     {

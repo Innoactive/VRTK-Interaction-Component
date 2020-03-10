@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Innoactive.Creator.Core.Tests.Utils
+namespace Innoactive.Creator.VRTK-Interaction.Tests.Utils
 {
     public class VRTKTrainingBuilderTests : RuntimeTests
     {
