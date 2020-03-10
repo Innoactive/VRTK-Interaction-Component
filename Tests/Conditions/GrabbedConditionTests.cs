@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 
-namespace Innoactive.Creator.VRTK-Interaction.Tests.Conditions
+namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
 {
     public class GrabbedConditionTests : RuntimeTests
     {

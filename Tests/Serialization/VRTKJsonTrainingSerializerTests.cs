@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Innoactive.Creator.Core.Tests.Utils;
 using Innoactive.Hub.Training;
 using Innoactive.Hub.Training.Behaviors;
 using Innoactive.Hub.Training.Conditions;
@@ -12,7 +13,7 @@ using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 using HighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
 
-namespace Innoactive.Creator.VRTK-Interaction.Tests.Utils
+namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
 {
     public class VRTKJsonTrainingSerializerTests : RuntimeTests
     {

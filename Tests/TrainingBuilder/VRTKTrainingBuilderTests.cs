@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Linq;
+using Innoactive.Creator.Core.Tests.Utils;
 using Innoactive.Hub.Training;
 using Innoactive.Hub.Training.Conditions;
 using Innoactive.Hub.Training.Interaction.Conditions;
@@ -12,7 +13,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace Innoactive.Creator.VRTK-Interaction.Tests.Utils
+namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
 {
     public class VRTKTrainingBuilderTests : RuntimeTests
     {
