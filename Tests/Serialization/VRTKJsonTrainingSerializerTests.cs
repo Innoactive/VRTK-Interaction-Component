@@ -1,23 +1,19 @@
-#if UNITY_EDITOR
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Innoactive.Hub.Training.Audio;
+using Innoactive.Creator.Core.Tests.Utils;
 using Innoactive.Hub.Training;
 using Innoactive.Hub.Training.Behaviors;
 using Innoactive.Hub.Training.Conditions;
 using Innoactive.Hub.Training.SceneObjects;
 using Innoactive.Hub.Training.SceneObjects.Properties;
 using Innoactive.Hub.Training.Utils.Builders;
-using Innoactive.Hub.Training.Utils.Serialization;
-using Innoactive.Hub.Unity.Tests.Training.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 using HighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
 
-namespace Innoactive.Hub.Unity.Tests.Training
+namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
 {
     public class VRTKJsonTrainingSerializerTests : RuntimeTests
     {
@@ -122,5 +118,3 @@ namespace Innoactive.Hub.Unity.Tests.Training
         }
     }
 }
-
-#endif

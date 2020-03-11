@@ -1,14 +1,13 @@
-﻿#if UNITY_EDITOR
-
-using System.Collections;
+﻿using System.Collections;
 using Innoactive.Hub.Training;
 using Innoactive.Hub.Training.Conditions;
 using Innoactive.Hub.Training.SceneObjects.Properties;
+using Innoactive.Creator.Core.Tests.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 
-namespace Innoactive.Hub.Unity.Tests.Training.Conditions
+namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
 {
     public class UsedConditionTests : RuntimeTests
     {
@@ -184,4 +183,3 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
         }
     }
 }
-#endif
