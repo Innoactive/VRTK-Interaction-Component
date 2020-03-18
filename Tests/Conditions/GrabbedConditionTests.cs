@@ -1,9 +1,9 @@
-﻿using Innoactive.Hub.Training;
-using Innoactive.Hub.Training.Interaction.Conditions;
-using System.Collections;
-using Innoactive.Hub.Training.Configuration;
-using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Creator.Core.Tests.Utils;
+﻿using System.Collections;
+using Innoactive.Creator.BasicInteraction.Conditions;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Core.Configuration;
+using Innoactive.Creator.Tests.Utils;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;

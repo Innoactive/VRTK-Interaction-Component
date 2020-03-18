@@ -2,7 +2,7 @@
 using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Interaction
+namespace Innoactive.Creator.VRTKInteraction
 {
     /// <summary>
     /// Extension of the `VRTK_SnapDropZone` that allows forcing a snapped object to stay snapped, even if it leaves the collider.

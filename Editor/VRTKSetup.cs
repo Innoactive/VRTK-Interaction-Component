@@ -1,9 +1,9 @@
-﻿using Innoactive.Creator.Interaction.Utils;
-using Innoactive.Hub.Training.Unity.Utils;
+﻿using Innoactive.Creator.Unity;
+using Innoactive.CreatorEditor.BasicInteraction;
 using UnityEditor;
 using UnityEngine;
 
-namespace Innoactive.Creator.VRTK.Utils
+namespace Innoactive.CreatorEditor.VRTKInteraction
 {
     /// <summary>
     /// Scene setup for VRTK.

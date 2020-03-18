@@ -1,10 +1,11 @@
-﻿﻿using Innoactive.Hub.Interaction;
+﻿﻿using Innoactive.Creator.VRTKInteraction;
 using System;
- using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
- using UnityEngine;
+using Innoactive.Creator.BasicInteraction.Properties;
+using Innoactive.Creator.Core.SceneObjects.Properties;
+using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Training.SceneObjects.Properties
+namespace Innoactive.Creator.VRTKInteraction.Properties
 {
     /// <summary>
     /// VRTK implementation of the IUsableProperty.

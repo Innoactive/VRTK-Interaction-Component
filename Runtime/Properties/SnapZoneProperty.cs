@@ -1,12 +1,13 @@
-﻿﻿using Innoactive.Hub.Interaction;
+﻿﻿using Innoactive.Creator.VRTKInteraction;
 using System;
-using Innoactive.Hub.Training.Configuration;
-using Innoactive.Hub.Training.Configuration.Modes;
-using Innoactive.Hub.Training.SceneObjects.Interaction.Properties;
+using Innoactive.Creator.BasicInteraction.Properties;
+using Innoactive.Creator.Core.Configuration;
+using Innoactive.Creator.Core.Configuration.Modes;
+using Innoactive.Creator.Core.SceneObjects.Properties;
 using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Training.SceneObjects.Properties
+namespace Innoactive.Creator.VRTKInteraction.Properties
 {
     /// <summary>
     /// VRTK implementation of the ISnapZoneProperty.

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using Innoactive.Hub.Training;
-using Innoactive.Hub.Training.Conditions;
-using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Creator.Core.Tests.Utils;
+using Innoactive.Creator.BasicInteraction.Conditions;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Tests.Utils;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;

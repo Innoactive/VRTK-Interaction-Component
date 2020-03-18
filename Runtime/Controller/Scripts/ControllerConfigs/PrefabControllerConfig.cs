@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Innoactive.Hub.Interaction
+namespace Innoactive.Creator.VRTKInteraction
 {
     /// <summary>
     /// Controller config that provides left and right controllers by instantiating the provided prefab objects.
