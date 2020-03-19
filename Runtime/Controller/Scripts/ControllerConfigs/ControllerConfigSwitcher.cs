@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Interaction
+namespace Innoactive.Creator.VRTKInteraction
 {
     /// <summary>
     /// Allows to choose between different controller configs. These Configs must be instances in the scene,

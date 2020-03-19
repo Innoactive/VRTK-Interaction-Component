@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Innoactive.Hub.Interaction
+namespace Innoactive.Creator.VRTKInteraction
 {
     /// <summary>
     /// Abstract class that can used 

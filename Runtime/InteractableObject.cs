@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
-namespace Innoactive.Hub.Interaction
+namespace Innoactive.Creator.VRTKInteraction
 {
     /// <summary>
     /// Extension if VRTK_InteractableObject that automatically applies the highlight color from HubSettings,

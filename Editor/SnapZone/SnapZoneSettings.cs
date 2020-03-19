@@ -1,9 +1,8 @@
-﻿using Innoactive.Hub.Interaction;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Training.Utils
+namespace Innoactive.CreatorEditor.VRTKInteraction
 {
     /// <summary>
     /// Settings for <see cref="SnapDropZone"/>s for e.g. automatic creation of such snap zones.

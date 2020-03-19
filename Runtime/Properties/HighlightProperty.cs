@@ -1,9 +1,10 @@
 ﻿using System;
+using Innoactive.Creator.Core.Properties;
 using UnityEngine;
 using VRTK;
 using VRTK.Highlighters;
 
-namespace Innoactive.Hub.Training.SceneObjects.Properties.VRTK
+namespace Innoactive.Creator.VRTKInteraction.Properties
 {
     /// <summary>
     /// Property that is used to highlight training scene objects.

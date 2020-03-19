@@ -1,11 +1,10 @@
-﻿using Innoactive.Hub.Interaction;
-using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Hub.Training.Utils;
+﻿using Innoactive.Creator.VRTKInteraction;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEditor;
 using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Training.Editors.Windows
+namespace Innoactive.CreatorEditor.VRTKInteraction
 {
     /// <summary>
     /// Editor Window used to setup settings for <see cref="SnapDropZone"/>s

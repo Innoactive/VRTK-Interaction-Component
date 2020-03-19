@@ -2,15 +2,17 @@
 using UnityEngine;
 using VRTK.Highlighters;
 using System.Runtime.Serialization;
-using Innoactive.Hub.Training.Attributes;
-using Innoactive.Hub.Training.Configuration;
-using Innoactive.Hub.Training.Configuration.Modes;
-using Innoactive.Hub.Training.SceneObjects;
-using Innoactive.Hub.Training.SceneObjects.Properties.VRTK;
-using Innoactive.Hub.Training.Unity.Utils;
-using Innoactive.Hub.Training.Utils;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Core.Attributes;
+using Innoactive.Creator.Core.Behaviors;
+using Innoactive.Creator.Core.Configuration;
+using Innoactive.Creator.Core.Configuration.Modes;
+using Innoactive.Creator.Core.SceneObjects;
+using Innoactive.Creator.Core.Utils;
+using Innoactive.Creator.Unity;
+using Innoactive.Creator.VRTKInteraction.Properties;
 
-namespace Innoactive.Hub.Training.Behaviors
+namespace Innoactive.Creator.VRTKInteraction.Behaviors
 {
     /// <summary>
     /// Behavior that highlights the target <see cref="ISceneObject"/> with the specified color until the behavior is being deactivated.
@@ -24,7 +26,7 @@ namespace Innoactive.Hub.Training.Behaviors
         public class EntityData : IBehaviorData
         {
             /// <summary>
-            /// <see cref="ModeParameter"/> of the highlight color.
+            /// <see cref="ModeParameter{T}"/> of the highlight color.
             /// Training modes can change the highlight color.
             /// </summary>
             public ModeParameter<Color> CustomHighlightColor { get; set; }
