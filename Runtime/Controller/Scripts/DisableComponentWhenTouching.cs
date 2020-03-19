@@ -1,7 +1,7 @@
 using UnityEngine;
 using VRTK;
 
-namespace Innoactive.Hub.Interaction
+namespace Innoactive.Creator.VRTKInteraction
 {
     /// <summary>
     /// Script that disables a set of components when the corresponding VRTK_InteractTouch touches an object.

@@ -1,17 +1,19 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Innoactive.Creator.Core.Tests.Utils;
-using Innoactive.Hub.Training;
-using Innoactive.Hub.Training.Behaviors;
-using Innoactive.Hub.Training.Conditions;
-using Innoactive.Hub.Training.SceneObjects;
-using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Hub.Training.Utils.Builders;
+using Innoactive.Creator.BasicInteraction.Conditions;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Core.Behaviors;
+using Innoactive.Creator.Core.SceneObjects;
+using Innoactive.Creator.Core.Properties;
+using Innoactive.Creator.Core.Utils.Builders;
+using Innoactive.Creator.Tests.Utils;
+using Innoactive.Creator.VRTKInteraction.Behaviors;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
-using HighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
+using HighlightProperty = Innoactive.Creator.VRTKInteraction.Properties.HighlightProperty;
 
 namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
 {

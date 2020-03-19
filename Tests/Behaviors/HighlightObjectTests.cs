@@ -5,15 +5,15 @@ using UnityEngine;
 using NUnit.Framework;
 using VRTK.Highlighters;
 using System.Collections.Generic;
-using Innoactive.Hub.Training;
-using Innoactive.Hub.Training.Behaviors;
-using Innoactive.Hub.Training.Configuration;
-using Innoactive.Hub.Training.Configuration.Modes;
-using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Creator.Core.Tests.Utils;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Core.Behaviors;
+using Innoactive.Creator.Core.Configuration;
+using Innoactive.Creator.Core.Configuration.Modes;
+using Innoactive.Creator.Core.Properties;
+using Innoactive.Creator.Tests.Utils;
 using VRTK;
 using Object = UnityEngine.Object;
-using VRTKHighlightProperty = Innoactive.Hub.Training.SceneObjects.Properties.VRTK.HighlightProperty;
+using VRTKHighlightProperty = Innoactive.Creator.VRTKInteraction.Properties.HighlightProperty;
 
 namespace Innoactive.Creator.VRTKInteraction.Tests.Behaviors
 {

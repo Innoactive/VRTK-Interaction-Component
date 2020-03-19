@@ -6,7 +6,7 @@ using VRTK;
 using UnityEditor;
 #endif
 
-namespace Innoactive.Hub.Interaction
+namespace Innoactive.Creator.VRTKInteraction
 {
     /// <summary>
     /// Defines what configs should be loaded on scene start based on the SDK and HMD types.

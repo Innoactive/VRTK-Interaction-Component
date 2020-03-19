@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Innoactive.Hub.Interaction;
-using Innoactive.Hub.Training.Utils;
+using Innoactive.Creator.VRTKInteraction;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEditor;
 using UnityEngine;
 
-namespace Innoactive.Hub.Training.SceneObjects.Properties.Editor
+namespace Innoactive.CreatorEditor.VRTKInteraction
 {
     /// <summary>
     /// Custom inspector for <see cref="SnappableProperty"/>, adding a button to create <see cref="SnapDropZone"/>s automatically.
