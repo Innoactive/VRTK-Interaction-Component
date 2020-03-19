@@ -1,6 +1,8 @@
 {
     "name": "VRTK",
-    "references": [],
+    "references": [
+        "GUID:1880273c0d70cde44a4a2d9730fc0a3f"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
