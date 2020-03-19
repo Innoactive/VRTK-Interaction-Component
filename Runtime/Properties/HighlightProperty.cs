@@ -1,5 +1,5 @@
 ﻿using System;
-using Innoactive.Creator.Core.SceneObjects.Properties;
+using Innoactive.Creator.Core.Properties;
 using UnityEngine;
 using VRTK;
 using VRTK.Highlighters;

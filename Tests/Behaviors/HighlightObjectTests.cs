@@ -9,7 +9,7 @@ using Innoactive.Creator.Core;
 using Innoactive.Creator.Core.Behaviors;
 using Innoactive.Creator.Core.Configuration;
 using Innoactive.Creator.Core.Configuration.Modes;
-using Innoactive.Creator.Core.SceneObjects.Properties;
+using Innoactive.Creator.Core.Properties;
 using Innoactive.Creator.Tests.Utils;
 using VRTK;
 using Object = UnityEngine.Object;
