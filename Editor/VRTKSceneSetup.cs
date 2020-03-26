@@ -8,7 +8,7 @@ namespace Innoactive.CreatorEditor.VRTKInteraction
     /// <summary>
     /// Scene setup for VRTK.
     /// </summary>
-    public class VRTKSetup : OnInteractionFrameworkSetup
+    public class VRTKSceneSetup : InteractionFrameworkSceneSetup
     {
         /// <inheritdoc />
         public override void Setup()
