@@ -146,7 +146,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
             go.AddComponent<TouchedConditionTests.TouchablePropertyMock>();
             GrabbablePropertyMock mock = go.AddComponent<GrabbablePropertyMock>();
             GrabbedCondition condition = new GrabbedCondition(mock);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             bool wasGrabbed = false;
             bool wasUngrabbed = false;
