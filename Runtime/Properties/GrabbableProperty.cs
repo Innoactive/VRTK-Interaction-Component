@@ -1,7 +1,6 @@
-﻿﻿using Innoactive.Creator.VRTKInteraction;
-using System;
-using Innoactive.Creator.BasicInteraction.Properties;
+﻿using System;
 using Innoactive.Creator.Core.Properties;
+using Innoactive.Creator.BasicInteraction.Properties;
 using UnityEngine;
 using VRTK;
 using VRTK.GrabAttachMechanics;

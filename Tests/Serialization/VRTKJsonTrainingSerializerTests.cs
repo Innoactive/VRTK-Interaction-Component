@@ -62,7 +62,6 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
             ICourse training1 = new LinearTrainingBuilder("Training")
                 .AddChapter(new LinearChapterBuilder("Chapter")
                     .AddStep(new BasicStepBuilder("Step")
-                        .DisableAutomaticAudioHandling()
                         .AddBehavior(new HighlightObjectBehavior(testObject.GetProperty<HighlightProperty>(), Color.green))))
                 .Build();
 
@@ -96,7 +95,6 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
             ICourse training1 = new LinearTrainingBuilder("Training")
                 .AddChapter(new LinearChapterBuilder("Chapter")
                     .AddStep(new BasicStepBuilder("Step")
-                        .DisableAutomaticAudioHandling()
                         .AddBehavior(new VRTKObjectHighlight(testObject, Color.green))))
                 .Build();
 

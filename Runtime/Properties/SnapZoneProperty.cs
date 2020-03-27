@@ -1,9 +1,8 @@
-﻿﻿using Innoactive.Creator.VRTKInteraction;
-using System;
+﻿using System;
+using Innoactive.Creator.Core.Properties;
 using Innoactive.Creator.BasicInteraction.Properties;
 using Innoactive.Creator.Core.Configuration;
 using Innoactive.Creator.Core.Configuration.Modes;
-using Innoactive.Creator.Core.Properties;
 using UnityEngine;
 using VRTK;
 
