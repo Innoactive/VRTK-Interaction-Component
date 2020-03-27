@@ -25,10 +25,7 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
         public bool IsObjectSnapped
         {
-            get
-            {
-                return SnappedObject != null;
-            }
+            get { return SnappedObject != null; }
         }
 
         public ISnappableProperty SnappedObject { get; set; }
@@ -41,6 +38,7 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                 {
                     return SnapZone.gameObject;
                 }
+
                 return null;
             }
         }
