@@ -1,6 +1,6 @@
 ﻿using System;
-using Innoactive.Creator.Core.Properties;
 using Innoactive.Creator.BasicInteraction.Properties;
+using Innoactive.Creator.Core.Properties;
 using UnityEngine;
 using VRTK;
 
