@@ -1,11 +1,11 @@
 ﻿using System;
-using Innoactive.Creator.Core.Properties;
 using Innoactive.Creator.BasicInteraction.Properties;
+using Innoactive.Creator.Core.Properties;
 using UnityEngine;
 using VRTK;
 
- namespace Innoactive.Creator.VRTKInteraction.Properties
-{ 
+namespace Innoactive.Creator.VRTKInteraction.Properties
+{
     /// <summary>
     /// VRTK implementation of the ITouchableProperty.
     /// </summary>
@@ -25,6 +25,7 @@ using VRTK;
                 {
                     return interactable.IsTouched();
                 }
+
                 return false;
             }
         }

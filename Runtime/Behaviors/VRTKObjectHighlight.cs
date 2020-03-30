@@ -38,15 +38,9 @@ namespace Innoactive.Creator.VRTKInteraction.Behaviors
             [DisplayName("Highlight color")]
             public Color HighlightColor
             {
-                get
-                {
-                    return CustomHighlightColor.Value;
-                }
+                get { return CustomHighlightColor.Value; }
 
-                set
-                {
-                    CustomHighlightColor = new ModeParameter<Color>("HighlightColor", value);
-                }
+                set { CustomHighlightColor = new ModeParameter<Color>("HighlightColor", value); }
             }
 
             /// <summary>
@@ -55,10 +49,6 @@ namespace Innoactive.Creator.VRTKInteraction.Behaviors
             [DataMember]
             [DisplayName("Object to highlight")]
             public SceneObjectReference Target { get; set; }
-
-            public float FadeInDuration { get; set; }
-
-            public float FadeOutDuration { get; set; }
 
             public VRTK_BaseHighlighter Highlight { get; set; }
 
@@ -71,32 +61,44 @@ namespace Innoactive.Creator.VRTKInteraction.Behaviors
             public string Name { get; set; }
         }
 
-        private class ActivatingProcess : InstantStageProcess<EntityData>
+        private class ActivatingProcess : InstantProcess<EntityData>
         {
-            /// <inheritdoc />
-            public override void Start(EntityData data)
+            public ActivatingProcess(EntityData data) : base(data)
             {
-                HighlightProperty highlighter = data.Target.Value.GameObject.GetOrAddComponent<HighlightProperty>();
-                highlighter.Highlight(data.HighlightColor);
+            }
+
+            /// <inheritdoc />
+            public override void Start()
+            {
+                HighlightProperty highlighter = Data.Target.Value.GameObject.GetOrAddComponent<HighlightProperty>();
+                highlighter.Highlight(Data.HighlightColor);
             }
         }
 
-        private class DeactivatingProcess : InstantStageProcess<EntityData>
+        private class DeactivatingProcess : InstantProcess<EntityData>
         {
-            /// <inheritdoc />
-            public override void Start(EntityData data)
+            public DeactivatingProcess(EntityData data) : base(data)
             {
-                HighlightProperty highlighter = data.Target.Value.GameObject.GetOrAddComponent<HighlightProperty>();
+            }
+
+            /// <inheritdoc />
+            public override void Start()
+            {
+                HighlightProperty highlighter = Data.Target.Value.GameObject.GetOrAddComponent<HighlightProperty>();
                 highlighter.Unhighlight();
             }
         }
 
-        private class EntityConfigurator : IConfigurator<EntityData>
+        private class EntityConfigurator : Configurator<EntityData>
         {
-            /// <inheritdoc />
-            public void Configure(EntityData data, IMode mode, Stage stage)
+            public EntityConfigurator(EntityData data) : base(data)
             {
-                data.CustomHighlightColor.Configure(mode);
+            }
+
+            /// <inheritdoc />
+            public override void Configure(IMode mode, Stage stage)
+            {
+                Data.CustomHighlightColor.Configure(mode);
             }
         }
 
@@ -106,58 +108,30 @@ namespace Innoactive.Creator.VRTKInteraction.Behaviors
 
         public VRTKObjectHighlight(string name, Color highlightColor)
         {
-            Data = new EntityData()
-            {
-                Target = new SceneObjectReference(name),
-                HighlightColor = highlightColor
-            };
-        }
-
-        public VRTKObjectHighlight(ISceneObject target) : this(target, Color.magenta)
-        {
+            Data.Target = new SceneObjectReference(name);
+            Data.HighlightColor = highlightColor;
         }
 
         public VRTKObjectHighlight(ISceneObject target, Color highlightColor) : this(TrainingReferenceUtils.GetNameFrom(target), highlightColor)
         {
         }
 
-        [Obsolete("The parameters \"fadeInDuration\" and \"fadeOutDuration\" are not used anymore.")]
-        public VRTKObjectHighlight(string name, Color highlightColor, float fadeInDuration = 0.5f, float fadeOutDuration = 0.5f)
+        /// <inheritdoc />
+        public override IProcess GetActivatingProcess()
         {
-            Data = new EntityData()
-            {
-                Target = new SceneObjectReference(name),
-                HighlightColor = highlightColor,
-                FadeInDuration = fadeInDuration,
-                FadeOutDuration = fadeOutDuration
-            };
+            return new ActivatingProcess(Data);
         }
-
-        [Obsolete("The parameters \"fadeInDuration\" and \"fadeOutDuration\" are not used anymore.")]
-        public VRTKObjectHighlight(ISceneObject target, Color highlightColor, float fadeInDuration = 0.5f, float fadeOutDuration = 0.5f) : this(TrainingReferenceUtils.GetNameFrom(target), highlightColor, fadeInDuration, fadeOutDuration)
-        {
-        }
-
-        private readonly IProcess<EntityData> process = new Process<EntityData>(new ActivatingProcess(), new EmptyStageProcess<EntityData>(), new DeactivatingProcess());
 
         /// <inheritdoc />
-        protected override IProcess<EntityData> Process
+        public override IProcess GetDeactivatingProcess()
         {
-            get
-            {
-                return process;
-            }
+            return new DeactivatingProcess(Data);
         }
 
-        private readonly IConfigurator<EntityData> configurator = new BaseConfigurator<EntityData>().Add(new EntityConfigurator());
-
         /// <inheritdoc />
-        protected override IConfigurator<EntityData> Configurator
+        protected override IConfigurator GetConfigurator()
         {
-            get
-            {
-                return configurator;
-            }
+            return new EntityConfigurator(Data);
         }
     }
 }

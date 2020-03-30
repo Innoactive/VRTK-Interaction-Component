@@ -1,5 +1,4 @@
-﻿﻿﻿using Innoactive.Creator.VRTKInteraction;
-using System;
+﻿using System;
 using Innoactive.Creator.BasicInteraction.Properties;
 using Innoactive.Creator.Core.Properties;
 using Innoactive.Creator.Unity;
