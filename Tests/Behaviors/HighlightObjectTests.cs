@@ -105,7 +105,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Behaviors
             TestLinearChapterBuilder builder = TestLinearChapterBuilder.SetupChapterBuilder(1, true);
             Chapter chapter = builder.Build();
             builder.Steps[0].Data.Behaviors.Data.Behaviors.Add(highlight);
-            chapter.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            chapter.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             // When we activate the chapter,
             chapter.LifeCycle.Activate();
@@ -158,7 +158,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Behaviors
             TestLinearChapterBuilder builder = TestLinearChapterBuilder.SetupChapterBuilder(1, true);
             Chapter chapter = builder.Build();
             builder.Steps[0].Data.Behaviors.Data.Behaviors.Add(highlight);
-            chapter.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            chapter.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             // When we activate the chapter,
             chapter.LifeCycle.Activate();
@@ -211,7 +211,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Behaviors
             TestLinearChapterBuilder builder = TestLinearChapterBuilder.SetupChapterBuilder(1, true);
             Chapter chapter = builder.Build();
             builder.Steps[0].Data.Behaviors.Data.Behaviors.Add(highlight);
-            chapter.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            chapter.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             // When we activate the chapter,
             chapter.LifeCycle.Activate();
@@ -244,7 +244,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Behaviors
             TestLinearChapterBuilder builder = TestLinearChapterBuilder.SetupChapterBuilder(1, true);
             Chapter chapter = builder.Build();
             builder.Steps[0].Data.Behaviors.Data.Behaviors.Add(highlight);
-            chapter.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            chapter.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             // When we activate the chapter,
             chapter.LifeCycle.Activate();
@@ -282,7 +282,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Behaviors
             targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior highlight = new HighlightObjectBehavior(targetObject, Color.cyan);
-            highlight.Configure(testRuntimeConfiguration.GetCurrentMode());
+            highlight.Configure(testRuntimeConfiguration.Modes.CurrentMode);
 
             // When we activate it,
             highlight.LifeCycle.Activate();
@@ -390,7 +390,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Behaviors
             targetObject.SceneObject.ChangeUniqueName(targetName);
 
             HighlightObjectBehavior behavior = new HighlightObjectBehavior(targetObject, Color.blue);
-            behavior.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            behavior.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             behavior.LifeCycle.Activate();
 
