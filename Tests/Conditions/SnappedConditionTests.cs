@@ -51,7 +51,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             // When activated
             condition.LifeCycle.Activate();
@@ -88,7 +88,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             yield return null;
             condition.Update();
@@ -129,7 +129,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
             yield return null;
             condition.Update();
 
@@ -171,7 +171,7 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
             yield return null;
             condition.Update();
 
