@@ -29,13 +29,6 @@ namespace Innoactive.Creator.VRTKInteraction
         public bool StaySnappedOnDisable { get; set; }
 
         /// <summary>
-        /// Ignores collisions with other `VRTK_SnapDropZone`s to prevent unwanted snapping/unsnapping.
-        /// Can be used to solve the immediate unsnapping after snapping together two objects with `VRTK_SnapDropZone`s.
-        /// </summary>
-        [Obsolete("No longer necessary and is not being used.")]
-        public bool IgnoreCollisionsWithSnapDropZones { get; set; }
-
-        /// <summary>
         /// GameObject that is used to highlight snapping target for the `VRTK_SnapDropZone`s.
         /// </summary>
         public GameObject HighlightObject
