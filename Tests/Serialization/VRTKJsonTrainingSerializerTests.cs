@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using Innoactive.Creator.BasicInteraction.Conditions;
@@ -8,7 +7,6 @@ using Innoactive.Creator.Core.SceneObjects;
 using Innoactive.Creator.Core.Properties;
 using Innoactive.Creator.Core.Utils.Builders;
 using Innoactive.Creator.Tests.Utils;
-using Innoactive.Creator.VRTKInteraction.Behaviors;
 using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -77,39 +75,6 @@ namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
             Assert.IsNotNull(highlightObjectBehavior2);
             Assert.AreEqual(highlightObjectBehavior.Data.HighlightColor, highlightObjectBehavior2.Data.HighlightColor);
             Assert.AreEqual(highlightObjectBehavior.Data.ObjectToHighlight.Value, highlightObjectBehavior2.Data.ObjectToHighlight.Value);
-
-            // Cleanup
-            TestingUtils.DestroySceneObject(testObject);
-
-            return null;
-        }
-
-        [Obsolete("VRTKObjectHighlight behavior is obsolete. It will be removed in v2.x.x.")]
-        [UnityTest]
-        // ReSharper disable once InconsistentNaming
-        public IEnumerator VRTKObjectHighlight()
-        {
-            // Given a training with a VRTK highlight behavior
-            TrainingSceneObject testObject = TestingUtils.CreateSceneObject("TestObject");
-
-            ICourse training1 = new LinearTrainingBuilder("Training")
-                .AddChapter(new LinearChapterBuilder("Chapter")
-                    .AddStep(new BasicStepBuilder("Step")
-                        .AddBehavior(new VRTKObjectHighlight(testObject, Color.green))))
-                .Build();
-
-            // When we serialize and deserialize it
-            byte[] serialized = Serializer.CourseToByteArray(training1);
-            ICourse training2 = Serializer.CourseFromByteArray(serialized);
-
-            // Then highlight color, duration and target should stay the same.
-            VRTKObjectHighlight condition1 = training1.Data.FirstChapter.Data.FirstStep.Data.Behaviors.Data.Behaviors.First() as VRTKObjectHighlight;
-            VRTKObjectHighlight condition2 = training2.Data.FirstChapter.Data.FirstStep.Data.Behaviors.Data.Behaviors.First() as VRTKObjectHighlight;
-
-            Assert.IsNotNull(condition1);
-            Assert.IsNotNull(condition2);
-            Assert.AreEqual(condition1.Data.HighlightColor, condition2.Data.HighlightColor);
-            Assert.AreEqual(condition1.Data.Target.Value, condition2.Data.Target.Value);
 
             // Cleanup
             TestingUtils.DestroySceneObject(testObject);
