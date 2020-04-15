@@ -5,7 +5,7 @@ using Innoactive.Creator.BasicInteraction.Builders;
 using Innoactive.Creator.BasicInteraction.Conditions;
 using Innoactive.Creator.Core;
 using Innoactive.Creator.Core.SceneObjects;
-using Innoactive.Creator.Core.Utils.Builders;
+using Innoactive.Creator.Tests.Builder;
 using Innoactive.Creator.Tests.Utils;
 using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
