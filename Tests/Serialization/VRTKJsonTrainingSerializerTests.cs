@@ -1,22 +1,19 @@
-#if UNITY_EDITOR
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Innoactive.Hub.Training.Audio;
-using Innoactive.Hub.Training;
-using Innoactive.Hub.Training.Behaviors;
-using Innoactive.Hub.Training.Conditions;
-using Innoactive.Hub.Training.SceneObjects;
-using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Hub.Training.Utils.Builders;
-using Innoactive.Hub.Training.Utils.Serialization;
-using Innoactive.Hub.Unity.Tests.Training.Utils;
+using Innoactive.Creator.BasicInteraction.Conditions;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Core.Behaviors;
+using Innoactive.Creator.Core.SceneObjects;
+using Innoactive.Creator.Core.Properties;
+using Innoactive.Creator.Tests.Builder;
+using Innoactive.Creator.Tests.Utils;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
+using HighlightProperty = Innoactive.Creator.VRTKInteraction.Properties.HighlightProperty;
 
-namespace Innoactive.Hub.Unity.Tests.Training
+namespace Innoactive.Creator.VRTKInteraction.Tests.Utils
 {
     public class VRTKJsonTrainingSerializerTests : RuntimeTests
     {
@@ -34,7 +31,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
                 .Build();
 
             // When we serialize and deserialize it,
-            ICourse training2 = JsonTrainingSerializer.Deserialize(JsonTrainingSerializer.Serialize(training1));
+            ICourse training2 = Serializer.CourseFromByteArray(Serializer.CourseToByteArray(training1));
 
             // Then that condition's target object and snap zone should stay unchanged.
             SnappedCondition condition1 = training1.Data.FirstChapter.Data.FirstStep.Data.Transitions.Data.Transitions.First().Data.Conditions.First() as SnappedCondition;
@@ -58,17 +55,17 @@ namespace Innoactive.Hub.Unity.Tests.Training
         {
             // Given a training with a VRTK highlight behavior
             TrainingSceneObject testObject = TestingUtils.CreateSceneObject("TestObject");
+            testObject.AddTrainingProperty<HighlightProperty>();
 
             ICourse training1 = new LinearTrainingBuilder("Training")
                 .AddChapter(new LinearChapterBuilder("Chapter")
                     .AddStep(new BasicStepBuilder("Step")
-                        .DisableAutomaticAudioHandling()
-                        .AddBehavior(new HighlightObjectBehavior(testObject, Color.green))))
+                        .AddBehavior(new HighlightObjectBehavior(testObject.GetProperty<HighlightProperty>(), Color.green))))
                 .Build();
 
             // When we serialize and deserialize it
-            string serialized = JsonTrainingSerializer.Serialize(training1);
-            ICourse training2 = JsonTrainingSerializer.Deserialize(serialized);
+            byte[] serialized = Serializer.CourseToByteArray(training1);
+            ICourse training2 = Serializer.CourseFromByteArray(serialized);
 
             // Then highlight color, duration and target should stay the same.
             HighlightObjectBehavior highlightObjectBehavior = training1.Data.FirstChapter.Data.FirstStep.Data.Behaviors.Data.Behaviors.First() as HighlightObjectBehavior;
@@ -77,41 +74,7 @@ namespace Innoactive.Hub.Unity.Tests.Training
             Assert.IsNotNull(highlightObjectBehavior);
             Assert.IsNotNull(highlightObjectBehavior2);
             Assert.AreEqual(highlightObjectBehavior.Data.HighlightColor, highlightObjectBehavior2.Data.HighlightColor);
-            Assert.AreEqual(highlightObjectBehavior.Data.Target.Value, highlightObjectBehavior2.Data.Target.Value);
-
-            // Cleanup
-            TestingUtils.DestroySceneObject(testObject);
-
-            return null;
-        }
-
-        [Obsolete("VRTKObjectHighlight behavior is obsolete. It will be removed in v2.x.x.")]
-        [UnityTest]
-        // ReSharper disable once InconsistentNaming
-        public IEnumerator VRTKObjectHighlight()
-        {
-            // Given a training with a VRTK highlight behavior
-            TrainingSceneObject testObject = TestingUtils.CreateSceneObject("TestObject");
-
-            ICourse training1 = new LinearTrainingBuilder("Training")
-                .AddChapter(new LinearChapterBuilder("Chapter")
-                    .AddStep(new BasicStepBuilder("Step")
-                        .DisableAutomaticAudioHandling()
-                        .AddBehavior(new VRTKObjectHighlight(testObject, Color.green))))
-                .Build();
-
-            // When we serialize and deserialize it
-            string serialized = JsonTrainingSerializer.Serialize(training1);
-            ICourse training2 = JsonTrainingSerializer.Deserialize(serialized);
-
-            // Then highlight color, duration and target should stay the same.
-            VRTKObjectHighlight condition1 = training1.Data.FirstChapter.Data.FirstStep.Data.Behaviors.Data.Behaviors.First() as VRTKObjectHighlight;
-            VRTKObjectHighlight condition2 = training2.Data.FirstChapter.Data.FirstStep.Data.Behaviors.Data.Behaviors.First() as VRTKObjectHighlight;
-
-            Assert.IsNotNull(condition1);
-            Assert.IsNotNull(condition2);
-            Assert.AreEqual(condition1.Data.HighlightColor, condition2.Data.HighlightColor);
-            Assert.AreEqual(condition1.Data.Target.Value, condition2.Data.Target.Value);
+            Assert.AreEqual(highlightObjectBehavior.Data.ObjectToHighlight.Value, highlightObjectBehavior2.Data.ObjectToHighlight.Value);
 
             // Cleanup
             TestingUtils.DestroySceneObject(testObject);
@@ -120,5 +83,3 @@ namespace Innoactive.Hub.Unity.Tests.Training
         }
     }
 }
-
-#endif

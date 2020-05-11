@@ -1,16 +1,14 @@
-﻿
-
-using Innoactive.Hub.Training;
-#if UNITY_EDITOR
-using System.Collections;
-using Innoactive.Hub.Training.Conditions;
-using Innoactive.Hub.Training.Configuration;
-using Innoactive.Hub.Training.SceneObjects.Properties;
+﻿using System.Collections;
+using Innoactive.Creator.BasicInteraction.Conditions;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Core.Configuration;
+using Innoactive.Creator.Tests.Utils;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 
-namespace Innoactive.Hub.Unity.Tests.Training.Conditions
+namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
 {
     public class GrabbedConditionTests : RuntimeTests
     {
@@ -148,7 +146,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
             go.AddComponent<TouchedConditionTests.TouchablePropertyMock>();
             GrabbablePropertyMock mock = go.AddComponent<GrabbablePropertyMock>();
             GrabbedCondition condition = new GrabbedCondition(mock);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             bool wasGrabbed = false;
             bool wasUngrabbed = false;
@@ -178,4 +176,3 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
         }
     }
 }
-#endif

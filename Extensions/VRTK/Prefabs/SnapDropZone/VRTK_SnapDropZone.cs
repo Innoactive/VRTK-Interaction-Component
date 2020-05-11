@@ -131,6 +131,11 @@ namespace VRTK
         protected const string HIGHLIGHT_CONTAINER_NAME = "HighlightContainer";
         protected const string HIGHLIGHT_OBJECT_NAME = "HighlightObject";
         protected const string HIGHLIGHT_EDITOR_OBJECT_NAME = "EditorHighlightObject";
+        
+#if UNITY_2019_3_OR_NEWER
+        // Object which trigger events are suppressed.
+        private GameObject suppressedObject = null;
+#endif
 
         public virtual void OnObjectEnteredSnapDropZone(SnapDropZoneEventArgs e)
         {
@@ -460,6 +465,14 @@ namespace VRTK
 
         protected virtual void OnTriggerExit(Collider collider)
         {
+#if UNITY_2019_3_OR_NEWER
+            if (IsObjectSuppressed(collider.gameObject))
+            {
+                ResetSuppressedTriggerEventObject();
+                return;
+            }
+#endif
+            
             CheckCanUnsnap(collider.GetComponentInParent<VRTK_InteractableObject>());
         }
 
@@ -836,6 +849,9 @@ namespace VRTK
             Quaternion startRotation = ioTransform.rotation;
             Vector3 startScale = ioTransform.localScale;
             bool storedKinematicState = ioCheck.isKinematic;
+#if UNITY_2019_3_OR_NEWER
+            SetObjectToSuppressTriggerEvent(ioCheck.gameObject);
+#endif
             ioCheck.isKinematic = true;
             while (elapsedTime <= duration)
             {
@@ -856,7 +872,9 @@ namespace VRTK
                 ioTransform.rotation = endSettings.transform.rotation;
                 ioTransform.localScale = endScale;
             }
-
+#if UNITY_2019_3_OR_NEWER
+            SetObjectToSuppressTriggerEvent(ioCheck.gameObject);
+#endif
             ioCheck.isKinematic = storedKinematicState;
             SetDropSnapType(ioCheck);
         }
@@ -1191,5 +1209,27 @@ namespace VRTK
             yield return new WaitForEndOfFrame();
             io.OverridePreviousState(parent, kinematic, grabbable);
         }
+        
+#if UNITY_2019_3_OR_NEWER
+        protected virtual void SetObjectToSuppressTriggerEvent(GameObject objectToSuppress)
+        {
+            suppressedObject = objectToSuppress;
+        }
+        
+        protected virtual bool IsObjectSuppressed(GameObject objectToCheck)
+        {
+            if (suppressedObject == null)
+            {
+                return false;
+            }
+            
+            return objectToCheck == suppressedObject || objectToCheck.transform.IsChildOf(suppressedObject.transform);
+        }
+        
+        protected virtual void ResetSuppressedTriggerEventObject()
+        {
+            suppressedObject = null;
+        }
+#endif
     }
 }

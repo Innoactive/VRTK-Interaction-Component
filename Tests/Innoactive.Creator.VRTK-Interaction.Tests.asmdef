@@ -1,0 +1,28 @@
+{
+    "name": "Innoactive.Creator.VRTK-Interaction.Tests",
+    "references": [
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:c8561f9de838ac04d8feeda695bc572d",
+        "GUID:880cbf18a8d0b304e905a848d71cf547",
+        "GUID:52aef80bd5e605942a19cc45c7f4745b",
+        "GUID:474da18fc7b8c9c4c9db09e343483375",
+        "GUID:5dc10662f790e4e49944b5fb3f5daeea",
+        "GUID:63918bccfc0480041a5eeeeb04a3e2ee",
+        "GUID:0d6de489d9511c1409be2d279f82ed7f",
+        "GUID:5907d0959af934345b9d18d84d8fa0f7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
