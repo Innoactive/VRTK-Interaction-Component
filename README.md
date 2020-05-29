@@ -2,7 +2,7 @@
 
 This component provides interactions in VR by using obsolete VRTK v3.0.3. We recommend to use [Unity XR Interaction](https://github.com/Innoactive/XR-Interaction-Component) component instead.
 
-This repository is depricated, and we do not maintain it.
+This repository is deprecated, and we do not maintain it.
 
 ## Documentation
 
