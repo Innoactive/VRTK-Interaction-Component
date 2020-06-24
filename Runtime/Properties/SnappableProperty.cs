@@ -1,4 +1,5 @@
 ﻿using System;
+using Innoactive.Creator.BasicInteraction.Conditions;
 using Innoactive.Creator.BasicInteraction.Properties;
 using Innoactive.Creator.Core.Properties;
 using Innoactive.Creator.Unity;
@@ -11,7 +12,7 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
     /// VRTK implementation of the ISnappableProperty.
     /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(GrabbableProperty))]
-    public class SnappableProperty : TrainingSceneObjectProperty, ISnappableProperty
+    public class SnappableProperty : LockableProperty, ISnappableProperty
     {
         public event EventHandler<EventArgs> Snapped;
         public event EventHandler<EventArgs> Unsnapped;
@@ -70,13 +71,18 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
             interactable.InteractableObjectUnsnappedFromDropZone += HandleUnsnappedFromDropZone;
         }
 
-        protected virtual void OnDisable()
+        protected new virtual void OnDisable()
         {
             if (interactable != null)
             {
                 interactable.InteractableObjectSnappedToDropZone -= HandleSnappedToDropZone;
                 interactable.InteractableObjectUnsnappedFromDropZone -= HandleUnsnappedFromDropZone;
             }
+        }
+
+        protected override void InternalSetLocked(bool lockState)
+        {
+            
         }
 
         protected void HandleSnappedToDropZone(object sender, InteractableObjectEventArgs args)
@@ -95,6 +101,7 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
             }
             EmitSnapped(SnappedZone);
         }
+        
         protected void HandleUnsnappedFromDropZone(object sender, InteractableObjectEventArgs args)
         {
             if (SnappedZone == null)
