@@ -115,6 +115,8 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                 {
                     interactable.ForceStopInteracting();
                 }
+                
+                interactable.enabled = lockState == false;
 
                 if (highlighter != null && highlighter.touchHighlight != Color.clear)
                 {
@@ -128,8 +130,6 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                     }
                 }
             }
-
-            interactable.enabled = lockState == false;
         }
 
         /// <summary>
