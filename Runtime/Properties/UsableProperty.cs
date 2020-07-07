@@ -138,7 +138,6 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                     }
                 }
             }
-
             interactable.isUsable = lockState == false;
         }
 
