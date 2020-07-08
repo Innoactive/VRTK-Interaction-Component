@@ -19,9 +19,9 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         {
             get
             {
-                if (interactable != null)
+                if (Interactable != null)
                 {
-                    return interactable.IsUsing();
+                    return Interactable.IsUsing();
                 }
                 return false;
             }
@@ -35,7 +35,25 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         private bool holdButtonToUse = false;
         public bool HoldButtonToUse { get { return holdButtonToUse; } protected set { holdButtonToUse = value; } }
 
-        protected VRTK_InteractableObject interactable;
+        private VRTK_InteractableObject interactable;
+
+        protected VRTK_InteractableObject Interactable
+        {
+            get
+            {
+                if (interactable == null)
+                {
+                    interactable = gameObject.GetComponent<VRTK_InteractableObject>();
+                    if (interactable == null)
+                    {
+                        interactable = gameObject.AddComponent<InteractableObject>();
+                    }
+                }
+
+                return interactable;
+            }
+        }
+        
         protected VRTK_InteractObjectHighlighter highlighter;
 
         public UsableProperty()
@@ -47,18 +65,18 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         public void SetUsableOnlyIfGrabbed(bool value)
         {
             UsableOnlyIfGrabbed = value;
-            if (interactable != null)
+            if (Interactable != null)
             {
-                interactable.useOnlyIfGrabbed = value;
+                Interactable.useOnlyIfGrabbed = value;
             }
         }
 
         public void SetHoldButtonToUse(bool value)
         {
             HoldButtonToUse = value;
-            if (interactable != null)
+            if (Interactable != null)
             {
-                interactable.holdButtonToUse = value;
+                Interactable.holdButtonToUse = value;
             }
         }
 
@@ -66,29 +84,25 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         {
             base.OnEnable();
 
-            interactable = gameObject.GetComponent<VRTK_InteractableObject>();
-            if (interactable == null)
-            {
-                interactable = gameObject.AddComponent<InteractableObject>();
-            }
+            Interactable.holdButtonToUse = HoldButtonToUse;
+            Interactable.useOnlyIfGrabbed = UsableOnlyIfGrabbed;
 
-            interactable.holdButtonToUse = HoldButtonToUse;
-            interactable.useOnlyIfGrabbed = UsableOnlyIfGrabbed;
+            Interactable.isUsable = true;
 
-            interactable.isUsable = true;
-
-            interactable.InteractableObjectUsed += HandleVRTKUsageStarted;
-            interactable.InteractableObjectUnused += HandleVRTKUsageStopped;
+            Interactable.InteractableObjectUsed += HandleVRTKUsageStarted;
+            Interactable.InteractableObjectUnused += HandleVRTKUsageStopped;
+            
+            InternalSetLocked(IsLocked);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
 
-            if (interactable != null)
+            if (Interactable != null)
             {
-                interactable.InteractableObjectUsed -= HandleVRTKUsageStarted;
-                interactable.InteractableObjectUnused -= HandleVRTKUsageStopped;
+                Interactable.InteractableObjectUsed -= HandleVRTKUsageStarted;
+                Interactable.InteractableObjectUnused -= HandleVRTKUsageStopped;
             }
         }
 
@@ -114,11 +128,11 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
         protected override void InternalSetLocked(bool lockState)
         {
-            if (interactable.IsUsing())
+            if (Interactable.IsUsing())
             {
                 if (lockState)
                 {
-                    interactable.ForceStopInteracting();
+                    Interactable.ForceStopInteracting();
                 }
 
                 if (highlighter == null)
@@ -138,7 +152,7 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                     }
                 }
             }
-            interactable.isUsable = lockState == false;
+            Interactable.isUsable = lockState == false;
         }
 
         /// <summary>
@@ -146,12 +160,12 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         /// </summary>
         public void FastForwardUse()
         {
-            if (interactable.IsUsing())
+            if (Interactable.IsUsing())
             {
-                VRTK_InteractUse user = interactable.GetUsingScript();
-                interactable.StopUsing();
+                VRTK_InteractUse user = Interactable.GetUsingScript();
+                Interactable.StopUsing();
                 user.AttemptUse();
-                interactable.StopUsing();
+                Interactable.StopUsing();
             }
             else
             {

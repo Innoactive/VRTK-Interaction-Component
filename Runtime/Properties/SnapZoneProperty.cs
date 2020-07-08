@@ -43,7 +43,19 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
             }
         }
 
-        public SnapDropZone SnapZone { get; protected set; }
+        private SnapDropZone snapZone = null;
+        public SnapDropZone SnapZone
+        {
+            get
+            {
+                if (snapZone == null)
+                {
+                    snapZone = GetComponent<SnapDropZone>();
+                }
+
+                return snapZone;
+            }
+        }
 
         public void Configure(IMode mode)
         {
@@ -73,6 +85,8 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
             SnapZone.ObjectSnappedToDropZone += HandleObjectSnapped;
             SnapZone.ObjectUnsnappedFromDropZone += HandleObjectUnsnapped;
+            
+            InternalSetLocked(IsLocked);
         }
 
         protected override void OnDisable()
@@ -106,11 +120,6 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
         private void InitializeModeParameters()
         {
-            if (SnapZone == null)
-            {
-                SnapZone = GetComponent<SnapDropZone>();
-            }
-
             if (IsShowingHighlight == null)
             {
                 highlightPrefab = SnapZone.highlightObjectPrefab;

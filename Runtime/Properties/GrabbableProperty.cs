@@ -24,26 +24,36 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         {
             get
             {
-                if (interactable != null)
+                if (Interactable != null)
                 {
-                    return interactable.IsGrabbed();
+                    return Interactable.IsGrabbed();
                 }
                 return false;
             }
         }
 
-        private VRTK_InteractableObject interactable;
+        private VRTK_InteractableObject interactable = null;
+        private VRTK_InteractableObject Interactable
+        {
+            get
+            {
+                if (interactable == null)
+                {
+                    interactable = gameObject.GetComponent<VRTK_InteractableObject>();
+                    if (interactable == null)
+                    {
+                        interactable = gameObject.AddComponent<InteractableObject>();
+                    }
+                }
+
+                return interactable;
+            }
+        }
         private VRTK_InteractObjectHighlighter highlighter;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-
-            interactable = gameObject.GetComponent<VRTK_InteractableObject>();
-            if (interactable == null)
-            {
-                interactable = gameObject.AddComponent<InteractableObject>();
-            }
 
             if (gameObject.GetComponent<VRTK_BaseHighlighter>() == null)
             {
@@ -58,23 +68,25 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                 grab.precisionGrab = true;
             }
 
-            interactable.isGrabbable = true;
+            Interactable.isGrabbable = true;
 
-            interactable.InteractableObjectGrabbed += HandleVRTKGrabbed;
-            interactable.InteractableObjectUngrabbed += HandleVRTKUngrabbed;
+            Interactable.InteractableObjectGrabbed += HandleVRTKGrabbed;
+            Interactable.InteractableObjectUngrabbed += HandleVRTKUngrabbed;
+
+            InternalSetLocked(IsLocked);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
 
-            if (interactable == null)
+            if (Interactable == null)
             {
                 return;
             }
 
-            interactable.InteractableObjectGrabbed -= HandleVRTKGrabbed;
-            interactable.InteractableObjectUngrabbed -= HandleVRTKUngrabbed;
+            Interactable.InteractableObjectGrabbed -= HandleVRTKGrabbed;
+            Interactable.InteractableObjectUngrabbed -= HandleVRTKUngrabbed;
         }
 
         private void HandleVRTKGrabbed(object sender, InteractableObjectEventArgs args)
@@ -99,11 +111,11 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
         protected override void InternalSetLocked(bool lockState)
         {
-            if (interactable.IsGrabbed())
+            if (Interactable.IsGrabbed())
             {
                 if (lockState)
                 {
-                    interactable.ForceStopInteracting();
+                    Interactable.ForceStopInteracting();
                 }
 
                 if (highlighter == null)
@@ -124,7 +136,7 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                 }
             }
 
-            interactable.isGrabbable = lockState == false;
+            Interactable.isGrabbable = lockState == false;
         }
 
         /// <summary>
@@ -132,12 +144,12 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         /// </summary>
         public void FastForwardGrab()
         {
-            if (interactable.IsGrabbed())
+            if (Interactable.IsGrabbed())
             {
-                VRTK_InteractGrab grab = interactable.GetGrabbingObject().GetComponent<VRTK_InteractGrab>();
-                interactable.Ungrabbed();
+                VRTK_InteractGrab grab = Interactable.GetGrabbingObject().GetComponent<VRTK_InteractGrab>();
+                Interactable.Ungrabbed();
                 grab.AttemptGrab();
-                interactable.ForceStopInteracting();
+                Interactable.ForceStopInteracting();
             }
             else
             {
@@ -146,15 +158,14 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
             }
         }
 
-
         /// <summary>
         /// Instantaneously simulate that the object was ungrabbed.
         /// </summary>
         public void FastForwardUngrab()
         {
-            if (interactable.IsGrabbed())
+            if (Interactable.IsGrabbed())
             {
-                interactable.ForceStopInteracting();
+                Interactable.ForceStopInteracting();
             }
             else
             {

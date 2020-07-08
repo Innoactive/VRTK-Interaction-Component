@@ -21,9 +21,9 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         {
             get
             {
-                if (interactable != null)
+                if (Interactable != null)
                 {
-                    return interactable.IsTouched();
+                    return Interactable.IsTouched();
                 }
 
                 return false;
@@ -33,25 +33,42 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         public bool UsableOnlyIfGrabbed { get; protected set; }
         public bool HoldButtonToUse { get; protected set; }
 
-        protected VRTK_InteractableObject interactable;
+        private VRTK_InteractableObject interactable;
+
+        protected VRTK_InteractableObject Interactable
+        {
+            get
+            {
+                if (interactable == null)
+                {
+                    interactable = gameObject.GetComponent<VRTK_InteractableObject>();
+                    if (interactable == null)
+                    {
+                        interactable = gameObject.AddComponent<InteractableObject>();
+                    }
+                }
+
+                return interactable;
+            }
+        }
 
         protected VRTK_InteractObjectHighlighter highlighter;
 
         public void SetUsableOnlyIfGrabbed(bool value)
         {
             UsableOnlyIfGrabbed = value;
-            if (interactable != null)
+            if (Interactable != null)
             {
-                interactable.useOnlyIfGrabbed = value;
+                Interactable.useOnlyIfGrabbed = value;
             }
         }
 
         public void SetHoldButtonToUse(bool value)
         {
             HoldButtonToUse = value;
-            if (interactable != null)
+            if (Interactable != null)
             {
-                interactable.holdButtonToUse = value;
+                Interactable.holdButtonToUse = value;
             }
         }
 
@@ -59,17 +76,11 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         {
             base.OnEnable();
 
-            interactable = gameObject.GetComponent<VRTK_InteractableObject>();
-            if (interactable == null)
-            {
-                interactable = gameObject.AddComponent<InteractableObject>();
-            }
+            Interactable.disableWhenIdle = false; // required to allow deactivating interactable object touching
+            Interactable.enabled = true;
 
-            interactable.disableWhenIdle = false; // required to allow deactivating interactable object touching
-            interactable.enabled = true;
-
-            interactable.InteractableObjectTouched += HandleVRTKTouched;
-            interactable.InteractableObjectUntouched += HandleVRTKUntouched;
+            Interactable.InteractableObjectTouched += HandleVRTKTouched;
+            Interactable.InteractableObjectUntouched += HandleVRTKUntouched;
 
             highlighter = gameObject.GetComponent<VRTK_InteractObjectHighlighter>();
             if (highlighter == null)
@@ -77,14 +88,16 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
                 highlighter = gameObject.AddComponent<VRTK_InteractObjectHighlighter>();
                 highlighter.touchHighlight = new Color(0.259f, 0.7843f, 1.0f, 0.5f);
             }
+            
+            InternalSetLocked(IsLocked);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
 
-            interactable.InteractableObjectUsed -= HandleVRTKTouched;
-            interactable.InteractableObjectUnused -= HandleVRTKUntouched;
+            Interactable.InteractableObjectUsed -= HandleVRTKTouched;
+            Interactable.InteractableObjectUnused -= HandleVRTKUntouched;
         }
 
         private void HandleVRTKTouched(object sender, InteractableObjectEventArgs args)
@@ -109,14 +122,15 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
         protected override void InternalSetLocked(bool lockState)
         {
-            if (interactable.IsTouched())
+            Interactable.enabled = lockState == false;
+            if (Interactable.IsTouched())
             {
                 if (lockState)
                 {
-                    interactable.ForceStopInteracting();
+                    Interactable.ForceStopInteracting();
                 }
                 
-                interactable.enabled = lockState == false;
+                Interactable.enabled = lockState == false;
 
                 if (highlighter != null && highlighter.touchHighlight != Color.clear)
                 {
@@ -137,11 +151,11 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
         /// </summary>
         public void FastForwardTouch()
         {
-            if (interactable.IsTouched())
+            if (Interactable.IsTouched())
             {
-                interactable.StopTouching();
-                interactable.StartTouching();
-                interactable.ForceStopInteracting();
+                Interactable.StopTouching();
+                Interactable.StartTouching();
+                Interactable.ForceStopInteracting();
             }
             else
             {
