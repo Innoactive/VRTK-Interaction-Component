@@ -128,28 +128,20 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
         protected override void InternalSetLocked(bool lockState)
         {
-            if (Interactable.IsUsing())
+            if (Interactable.IsUsing() && lockState)
             {
-                if (lockState)
-                {
-                    Interactable.ForceStopInteracting();
-                }
-
+                Interactable.StopUsing();
+                
                 if (highlighter == null)
                 {
                     highlighter = gameObject.GetComponent<VRTK_InteractObjectHighlighter>();
                 }
 
+                Interactable.isUsable = false;
                 if (highlighter != null && highlighter.useHighlight != Color.clear)
                 {
-                    if (lockState)
-                    {
-                        highlighter.Unhighlight();
-                    }
-                    else
-                    {
-                        highlighter.Highlight(highlighter.useHighlight);
-                    }
+
+                    highlighter.Unhighlight();
                 }
             }
             Interactable.isUsable = lockState == false;

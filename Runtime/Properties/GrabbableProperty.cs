@@ -111,32 +111,25 @@ namespace Innoactive.Creator.VRTKInteraction.Properties
 
         protected override void InternalSetLocked(bool lockState)
         {
-            if (Interactable.IsGrabbed())
+            if (Interactable.IsGrabbed() && lockState)
             {
-                if (lockState)
-                {
-                    Interactable.ForceStopInteracting();
-                }
-
+                Interactable.ForceStopInteracting();
+                
                 if (highlighter == null)
                 {
                     highlighter = gameObject.GetComponent<VRTK_InteractObjectHighlighter>();
                 }
 
+                Interactable.isGrabbable = false;
                 if (highlighter != null && highlighter.grabHighlight != Color.clear)
                 {
-                    if (lockState)
-                    {
-                        highlighter.Unhighlight();
-                    }
-                    else
-                    {
-                        highlighter.Highlight(highlighter.grabHighlight);
-                    }
+                    highlighter.Unhighlight();
                 }
             }
-
-            Interactable.isGrabbable = lockState == false;
+            else
+            {
+                Interactable.isGrabbable = lockState == false;
+            }
         }
 
         /// <summary>
