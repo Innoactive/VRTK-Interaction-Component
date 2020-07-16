@@ -1,21 +1,17 @@
-﻿
-
-using VRTK;
-#if UNITY_EDITOR
+﻿using VRTK;
 using System.Collections;
 using System.Collections.Generic;
-using Innoactive.Hub.Interaction;
-using Innoactive.Hub.Training;
-using Innoactive.Hub.Training.Conditions;
-using Innoactive.Hub.Training.Configuration;
-using Innoactive.Hub.Training.Configuration.Modes;
-using Innoactive.Hub.Training.SceneObjects.Properties;
-using Innoactive.Hub.Unity.Tests.Training.Utils;
+using Innoactive.Creator.BasicInteraction.Conditions;
+using Innoactive.Creator.Core;
+using Innoactive.Creator.Core.Configuration;
+using Innoactive.Creator.Core.Configuration.Modes;
+using Innoactive.Creator.Tests.Utils;
+using Innoactive.Creator.VRTKInteraction.Properties;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.TestTools;
 
-namespace Innoactive.Hub.Unity.Tests.Training.Conditions
+namespace Innoactive.Creator.VRTKInteraction.Tests.Conditions
 {
     public class SnappedConditionTests : RuntimeTests
     {
@@ -55,7 +51,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             // When activated
             condition.LifeCycle.Activate();
@@ -92,7 +88,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
 
             yield return null;
             condition.Update();
@@ -133,7 +129,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
             yield return null;
             condition.Update();
 
@@ -175,7 +171,7 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
             yield return null;
 
             SnappedCondition condition = new SnappedCondition(mockedProperty, snapZoneProperty);
-            condition.Configure(RuntimeConfigurator.Configuration.GetCurrentMode());
+            condition.Configure(RuntimeConfigurator.Configuration.Modes.CurrentMode);
             yield return null;
             condition.Update();
 
@@ -397,4 +393,3 @@ namespace Innoactive.Hub.Unity.Tests.Training.Conditions
         }
     }
 }
-#endif
