@@ -1,4 +1,0 @@
-[submodule "Extensions/SteamVR"]
-	path = Extensions/SteamVR
-	url = git@github.com:Innoactive/SteamVR.git
-	branch = feature/unity-assemblies
