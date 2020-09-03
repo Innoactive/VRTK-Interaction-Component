@@ -13,7 +13,7 @@ namespace Innoactive.CreatorEditor.VRTKInteraction
     public class SnapZoneWizard : EditorWindow
     {
         private static SnapZoneWizard window;
-        private const string menuPath = "Innoactive/Creator/Windows/Snap Zone Settings";
+        private const string menuPath = "Innoactive/Settings/Snap Zone Settings";
 
         private VRTK_SnapDropZone.SnapTypes snapType;
         private float snapDuration = 0f;
